@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-29T07:00:09.102Z",
+  "exportedAt": "2026-10-29T07:23:59.344Z",
   "appConfig": {
     "appName": "BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN",
     "logoUrl": "https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png",
@@ -12,63 +12,63 @@
   "stations": [
     {
       "id": "don_apachai",
+      "code": "DBP-701",
+      "name": "Đồn Biên phòng A Pa Chải",
+      "hotline": "02153.875.111",
       "area": "Xã Sín Thầu, Huyện Mường Nhé, Tỉnh Điện Biên",
       "commander": "Thượng tá Nguyễn Đức Cảnh",
       "markers": "Mốc quốc giới số 0 (Việt - Trung - Lào) đến Mốc 9 (Tuyến Việt - Trung & Việt - Lào)",
-      "status": "active",
-      "name": "Đồn Biên phòng A Pa Chải",
-      "code": "DBP-701",
-      "hotline": "02153.875.111"
-    },
-    {
-      "id": "don_lengsusin",
-      "markers": "Mốc quốc giới số 10 đến Mốc 28",
-      "code": "DBP-703",
-      "name": "Đồn Biên phòng Leng Su Sìn",
-      "status": "active",
-      "hotline": "02153.875.222",
-      "area": "Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé",
-      "commander": "Trung tá Lò Văn Minh"
-    },
-    {
-      "id": "don_nacosa",
-      "name": "Đồn Biên phòng Na Cô Sa",
-      "hotline": "02153.875.289",
-      "code": "DBP-707",
-      "status": "active",
-      "area": "Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ",
-      "commander": "Trung tá Giàng A Chư",
-      "markers": "Mốc quốc giới số 55 đến Mốc 65"
-    },
-    {
-      "id": "don_muongmon",
-      "area": "Xã Mường Mơn, Huyện Mường Chà",
-      "markers": "Mốc quốc giới số 81 đến Mốc 89",
-      "name": "Đồn Biên phòng Mường Mơn",
-      "hotline": "02153.875.333",
-      "commander": "Thiếu tá Hoàng Văn Thái",
-      "code": "DBP-711",
       "status": "active"
     },
     {
-      "id": "don_pathom",
-      "area": "Xã Pa Thơm, Huyện Điện Biên",
-      "commander": "Trung tá Lê Đình Quyền",
-      "hotline": "02153.875.444",
+      "id": "don_lengsusin",
+      "commander": "Trung tá Lò Văn Minh",
+      "hotline": "02153.875.222",
+      "name": "Đồn Biên phòng Leng Su Sìn",
+      "markers": "Mốc quốc giới số 10 đến Mốc 28",
       "status": "active",
-      "name": "Đồn Biên phòng Pa Thơm",
+      "code": "DBP-703",
+      "area": "Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé"
+    },
+    {
+      "id": "don_nacosa",
+      "markers": "Mốc quốc giới số 55 đến Mốc 65",
+      "status": "active",
+      "commander": "Trung tá Giàng A Chư",
+      "area": "Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ",
+      "code": "DBP-707",
+      "hotline": "02153.875.289",
+      "name": "Đồn Biên phòng Na Cô Sa"
+    },
+    {
+      "id": "don_muongmon",
+      "markers": "Mốc quốc giới số 81 đến Mốc 89",
+      "name": "Đồn Biên phòng Mường Mơn",
+      "code": "DBP-711",
+      "hotline": "02153.875.333",
+      "area": "Xã Mường Mơn, Huyện Mường Chà",
+      "status": "active",
+      "commander": "Thiếu tá Hoàng Văn Thái"
+    },
+    {
+      "id": "don_pathom",
+      "status": "active",
+      "area": "Xã Pa Thơm, Huyện Điện Biên",
       "markers": "Mốc quốc giới số 110 đến Mốc 112",
-      "code": "DBP-715"
+      "code": "DBP-715",
+      "name": "Đồn Biên phòng Pa Thơm",
+      "hotline": "02153.875.444",
+      "commander": "Trung tá Lê Đình Quyền"
     },
     {
       "id": "don_taytrang",
-      "markers": "Cửa khẩu Quốc tế Tây Trang - Pang Hok (Mốc quốc giới 113 - 115)",
-      "name": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
       "code": "DBP-717",
-      "status": "active",
-      "hotline": "02153.875.555",
+      "name": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+      "area": "Xã Na Ư, Huyện Điện Biên",
+      "markers": "Cửa khẩu Quốc tế Tây Trang - Pang Hok (Mốc quốc giới 113 - 115)",
       "commander": "Thượng tá Vũ Văn Biển",
-      "area": "Xã Na Ư, Huyện Điện Biên"
+      "hotline": "02153.875.555",
+      "status": "active"
     },
     {
       "id": "don_muongnha",
@@ -83,7 +83,7 @@
   ],
   "posts": [
     {
-      "id": "aGBkATeLUoGaSMKWtMju",
+      "id": "jCNu0fU7XD8aAvNLpHg9",
       "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
       "authorRole": "dan",
       "stationId": "don_lengsusin",
@@ -101,7 +101,7 @@
       "comments": []
     },
     {
-      "id": "ZadMhMLXoJLQNWgCWyIT",
+      "id": "CWcYjM0EApFOR1xvjz3P",
       "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
       "authorRole": "don_bp",
       "stationId": "don_taytrang",
@@ -119,21 +119,21 @@
       "comments": []
     },
     {
-      "id": "kOJGSQxnM7Wh1RtlHc47",
-      "approvedBy": "Đồn Biên phòng A Pa Chải",
-      "likes": 56,
+      "id": "aUCqC1hdUXKnu61R7lwx",
+      "authorRole": "dan",
+      "timestamp": 1761700000000,
+      "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
       "stationId": "don_apachai",
+      "likes": 56,
+      "status": "approved",
       "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
+      "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
+      "stationName": "Đồn Biên phòng A Pa Chải",
+      "createdAt": "29/10/2026 07:30",
+      "approvedBy": "Đồn Biên phòng A Pa Chải",
       "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
       "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
-      "status": "approved",
-      "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
       "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
-      "timestamp": 1761700000000,
-      "authorRole": "dan",
-      "createdAt": "29/10/2026 07:30",
-      "stationName": "Đồn Biên phòng A Pa Chải",
-      "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
       "comments": [
         {
           "id": "cm1",
@@ -147,7 +147,7 @@
   ],
   "reports": [
     {
-      "id": "ADi62cssNx7lrCmiiiKH",
+      "id": "kQhQ5QllmYK63XCHJmL3",
       "code": "TB-DB-102",
       "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
       "senderPhone": "0984.556.789",
@@ -177,7 +177,7 @@
       ]
     },
     {
-      "id": "SWsBh0Mtx0ABrdclsFH5",
+      "id": "9Y1jk7zjmR4MdYqTXChV",
       "code": "TB-DB-101",
       "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
       "senderPhone": "0912.345.678",
