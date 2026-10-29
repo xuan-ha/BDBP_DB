@@ -3,65 +3,348 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web CMS Quản Trị Trung Tâm - BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</title>
+  <title>Web CMS Quản Trị Hệ Thống - BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col">
-  <header class="bg-[#002814] text-white p-5 border-b-4 border-yellow-400 flex flex-wrap items-center justify-between gap-4 shadow-lg">
-    <div class="flex items-center gap-3.5">
-      <img src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" alt="Logo BĐBP" class="w-12 h-12 rounded-full bg-white p-0.5 object-contain" />
-      <div>
-        <div class="flex items-center gap-2">
-          <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded uppercase">WEB CMS QUẢN TRỊ ĐỘC LẬP</span>
-          <span class="text-xs text-emerald-300 font-mono">Firebase Project: bdbp-43b31</span>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+  <!-- TOP SYSTEM BAR -->
+  <div class="bg-slate-950 text-white px-4 py-2 border-b border-slate-800 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <a href="https://console.firebase.google.com/u/0/project/bdbp-43b31/overview" target="_blank" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 hover:text-yellow-300 bg-emerald-950/90 px-2.5 py-1 rounded-md border border-emerald-700/60">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        Firebase: <strong class="underline">bdbp-43b31</strong> (Cloud Firestore Live)
+      </a>
+      <div class="flex items-center gap-2">
+        <a href="./index.html" class="px-3 py-1.5 rounded-lg text-xs font-black bg-slate-800 hover:bg-[#006837] hover:text-yellow-300 text-slate-200 transition">📱 1. Mở App Bộ Đội Biên Phòng (index.html)</a>
+        <a href="./cms.html" class="px-3 py-1.5 rounded-lg text-xs font-black bg-amber-400 text-slate-950 shadow">🖥️ 2. Trang Web CMS Quản Trị (cms.html)</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="cmsToast" class="hidden fixed bottom-5 right-5 z-50 max-w-md bg-[#004d28] text-white border-2 border-yellow-400 rounded-2xl p-4 shadow-2xl">
+    <h4 id="cmsToastTitle" class="font-black text-yellow-300 text-sm uppercase"></h4>
+    <p id="cmsToastDesc" class="text-xs text-emerald-50 mt-1"></p>
+  </div>
+
+  <!-- MÀN HÌNH ĐĂNG NHẬP QUẢN TRỊ VIÊN WEB CMS -->
+  <div id="cmsLoginScreen" class="hidden flex-1 bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
+    <div class="max-w-md w-full bg-slate-950/95 border-2 border-amber-400 rounded-3xl p-8 text-white shadow-2xl relative z-10">
+      <div class="text-center mb-6">
+        <img id="loginLogoImg" src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" class="w-20 h-20 mx-auto mb-3 rounded-full bg-white p-0.5 object-contain" />
+        <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-3 py-0.5 rounded-full uppercase">WEB CMS QUẢN TRỊ ĐỘC LẬP</span>
+        <h2 id="loginTitleText" class="text-xl font-black text-amber-400 uppercase mt-2">CMS Quản Trị - BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</h2>
+        <p class="text-xs text-slate-400 mt-1">Cổng quản trị dữ liệu trung tâm trên Cloud Firestore (Tách biệt khỏi App người dùng)</p>
+      </div>
+      <form onsubmit="event.preventDefault(); toggleCmsLogin(true);" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-amber-300 uppercase mb-1">Tài khoản Quản trị viên CMS</label>
+          <input type="text" value="admin.bdbp.dienbien@gov.vn" required class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono" />
         </div>
-        <h1 class="text-lg sm:text-xl font-black text-yellow-300 uppercase mt-0.5">Hệ Thống Quản Trị Cơ Sở Dữ Liệu Trung Tâm - BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</h1>
-      </div>
+        <div>
+          <label class="block font-bold text-amber-300 uppercase mb-1">Mật khẩu Quản trị</label>
+          <input type="password" value="••••••••••••" required class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-white" />
+        </div>
+        <button type="submit" class="w-full py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black uppercase rounded-xl shadow-lg text-sm">Đăng Nhập Cổng Web CMS</button>
+      </form>
     </div>
-    <div class="flex items-center gap-2">
-      <a href="https://console.firebase.google.com/u/0/project/bdbp-43b31/overview" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-bold px-3.5 py-2 rounded-xl border border-amber-400/40">
-        🔥 Mở Firebase Console (bdbp-43b31)
-      </a>
-      <a href="./index.html" class="bg-[#006837] hover:bg-[#00522b] text-yellow-300 text-xs font-black px-4 py-2 rounded-xl border border-yellow-400/40">
-        📱 Mở Ứng Dụng 3 Cấp (index.html)
-      </a>
-    </div>
-  </header>
+  </div>
 
-  <main class="max-w-7xl w-full mx-auto p-6 space-y-6 flex-1">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-white p-5 rounded-2xl shadow border-l-8 border-[#006837]">
-        <div class="text-xs font-bold text-slate-500 uppercase">Đồn Biên Phòng Quản Lý</div>
-        <div id="cmsStationCount" class="text-3xl font-black text-[#004222] mt-1">7</div>
+  <!-- GIAO DIỆN CHÍNH WEB CMS (SIDEBAR TRÁI + 6 PHÂN HỆ QUẢN TRỊ) -->
+  <div id="cmsMainWorkspace" class="flex-1 flex flex-col md:flex-row min-h-[calc(100vh-42px)]">
+    <!-- SIDEBAR TRÁI -->
+    <aside class="w-full md:w-72 bg-[#002814] text-white flex flex-col justify-between border-r-2 border-yellow-400/40 shrink-0">
+      <div>
+        <div class="p-5 border-b border-emerald-800/80 flex items-center gap-3">
+          <img id="sidebarLogoImg" src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" class="w-12 h-12 rounded-full bg-white p-0.5 object-contain shrink-0" />
+          <div>
+            <span class="bg-amber-400 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded uppercase">STANDALONE WEB CMS</span>
+            <h2 class="font-black text-sm text-yellow-300 uppercase mt-1 leading-tight">CMS Quản Trị Hệ Thống</h2>
+            <p class="text-[11px] text-emerald-300">Bộ đội Biên phòng Điện Biên</p>
+          </div>
+        </div>
+
+        <div class="p-3 space-y-1.5">
+          <div class="px-3 py-1.5 text-[10px] font-black text-emerald-400 uppercase tracking-wider">Phân hệ Quản trị Database</div>
+          <button onclick="switchCmsSection('overview')" id="cmsNav-overview" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-black bg-amber-400 text-slate-950 shadow-md">📊 Dashboard Tổng Quan</button>
+          <button onclick="switchCmsSection('stations')" id="cmsNav-stations" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#003d20]">🛡️ Quản Lý Đồn Biên Phòng (<span id="navStationCount">7</span>)</button>
+          <button onclick="switchCmsSection('posts')" id="cmsNav-posts" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#003d20]">📰 Kiểm Duyệt Bài Đăng (<span id="navPostCount">3</span>)</button>
+          <button onclick="switchCmsSection('reports')" id="cmsNav-reports" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#003d20]">🚨 Điều Phối Tin Báo (<span id="navReportCount">2</span>)</button>
+          <button onclick="switchCmsSection('branding')" id="cmsNav-branding" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#003d20]">🖼️ Cấu Hình App, Logo & Firebase</button>
+          <button onclick="switchCmsSection('logs')" id="cmsNav-logs" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#003d20]">📜 Nhật Ký Audit (<span id="navLogCount">0</span>)</button>
+        </div>
       </div>
-      <div class="bg-white p-5 rounded-2xl shadow border-l-8 border-amber-500">
-        <div class="text-xs font-bold text-slate-500 uppercase">Tổng Bài Đăng Trên App</div>
-        <div id="cmsPostCount" class="text-3xl font-black text-amber-600 mt-1">3</div>
+
+      <div class="p-4 border-t border-emerald-800/80 space-y-2 text-xs">
+        <a href="https://console.firebase.google.com/u/0/project/bdbp-43b31/overview" target="_blank" class="w-full py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-yellow-300 font-black flex items-center justify-center gap-2 shadow border border-yellow-400/40">
+          🔥 Mở Firebase (bdbp-43b31)
+        </a>
+        <a href="./index.html" class="w-full py-2.5 px-3 rounded-xl bg-[#006837] hover:bg-[#00522b] text-yellow-300 font-black flex items-center justify-center gap-2 shadow">
+          📱 Mở Giao Diện App Di Động
+        </a>
+        <button onclick="toggleCmsLogin(false)" class="w-full py-2 px-3 rounded-xl bg-red-900/60 hover:bg-red-800 text-red-100 font-bold flex items-center justify-center gap-1.5">
+          Đăng xuất Web CMS
+        </button>
       </div>
-      <div class="bg-white p-5 rounded-2xl shadow border-l-8 border-red-600">
-        <div class="text-xs font-bold text-slate-500 uppercase">Tổng Hồ Sơ Tin Báo</div>
-        <div id="cmsReportCount" class="text-3xl font-black text-red-600 mt-1">2</div>
+    </aside>
+
+    <!-- NỘI DUNG PHẢI CỦA WEB CMS -->
+    <div class="flex-1 flex flex-col">
+      <header class="bg-white border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="bg-emerald-100 text-[#00522b] text-[10px] font-black px-2.5 py-0.5 rounded uppercase border border-emerald-300">TRANG WEB QUẢN TRỊ ĐỘC LẬP (cms.html)</span>
+            <a href="https://console.firebase.google.com/u/0/project/bdbp-43b31/overview" target="_blank" class="text-xs text-blue-700 hover:underline font-mono font-bold">🔥 Firebase Project: bdbp-43b31</a>
+          </div>
+          <h1 id="cmsHeaderTitle" class="text-lg font-black text-slate-900 uppercase mt-0.5">Hệ Thống Quản Trị Cơ Sở Dữ Liệu Trung Tâm — BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</h1>
+        </div>
+        <div class="flex items-center gap-3 text-xs">
+          <div class="text-right hidden sm:block">
+            <div class="font-black text-slate-800">Quản trị viên Ban Chỉ huy Tỉnh</div>
+            <div class="text-[11px] text-emerald-700 font-semibold">Quyền Root • Cloud Firestore Live</div>
+          </div>
+          <img id="topRightLogoImg" src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" class="w-10 h-10 rounded-full bg-white p-0.5 object-contain" />
+        </div>
+      </header>
+
+      <div class="p-6 flex-1 space-y-6 overflow-y-auto">
+        <!-- SECTION 1: OVERVIEW DASHBOARD -->
+        <section id="cmsSec-overview" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl border-l-8 border-[#006837] shadow-sm">
+              <span class="text-xs font-bold text-slate-500 uppercase">Đồn Biên Phòng Thực Tế</span>
+              <p id="statStations" class="text-3xl font-black text-[#004222] mt-1">7</p>
+              <span class="text-[11px] text-emerald-700 font-semibold">Đang đồng bộ sang App</span>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border-l-8 border-amber-500 shadow-sm">
+              <span class="text-xs font-bold text-slate-500 uppercase">Bài Đăng Chờ Duyệt</span>
+              <p id="statPendingPosts" class="text-3xl font-black text-amber-600 mt-1">0</p>
+              <span id="statTotalPosts" class="text-[11px] text-slate-500">Tổng số bài trên App: 3</span>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border-l-8 border-red-600 shadow-sm">
+              <span class="text-xs font-bold text-slate-500 uppercase">Tin Báo Từ App Gửi Về</span>
+              <p id="statReports" class="text-3xl font-black text-red-600 mt-1">2</p>
+              <span id="statUrgentReports" class="text-[11px] text-red-700 font-semibold">Khẩn cấp: 0 vụ việc</span>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border-l-8 border-blue-600 shadow-sm">
+              <span class="text-xs font-bold text-slate-500 uppercase">Nhật Ký Audit Log</span>
+              <p id="statLogs" class="text-3xl font-black text-blue-800 mt-1">0</p>
+              <span class="text-[11px] text-slate-500">Lưu vết mọi thao tác App & CMS</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+            <h3 class="font-black text-sm text-[#004222] uppercase mb-4">Bảng Giám Sát Dữ Liệu Thời Gian Thực Từ Ứng Dụng Theo Từng Đồn Biên Phòng</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="bg-[#e8f5ee] text-[#004222] font-black uppercase">
+                    <th class="p-3 rounded-tl-xl">Mã Đồn</th>
+                    <th class="p-3">Tên Đồn Biên Phòng</th>
+                    <th class="p-3">Địa Bàn Xã / Huyện</th>
+                    <th class="p-3">Bài Đăng</th>
+                    <th class="p-3">Tin Báo Nhận</th>
+                    <th class="p-3 rounded-tr-xl">Trực Ban</th>
+                  </tr>
+                </thead>
+                <tbody id="overviewTableBody" class="divide-y divide-slate-100"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: QUẢN LÝ ĐỒN BIÊN PHÒNG -->
+        <section id="cmsSec-stations" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+            <h3 class="font-black text-sm text-[#004222] uppercase">➕ Thêm / Cập Nhật Đồn Biên Phòng (Đồng Bộ Sang App)</h3>
+            <form id="stationForm" class="space-y-3 text-xs">
+              <input type="hidden" id="stId" />
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Số hiệu / Mã Đồn</label>
+                <input id="stCode" placeholder="Ví dụ: DBP-725" class="w-full p-2.5 rounded-xl border border-slate-300" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Tên Đồn Biên phòng *</label>
+                <input id="stName" required placeholder="Ví dụ: Đồn Biên phòng Mường Pồn" class="w-full p-2.5 rounded-xl border border-slate-300 font-bold" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Xã / Huyện phụ trách *</label>
+                <input id="stArea" required placeholder="Ví dụ: Xã Mường Pồn, Huyện Điện Biên" class="w-full p-2.5 rounded-xl border border-slate-300" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Cột mốc phụ trách</label>
+                <input id="stMarkers" placeholder="Ví dụ: Mốc quốc giới số 95 đến Mốc 105" class="w-full p-2.5 rounded-xl border border-slate-300" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Chỉ huy Đồn</label>
+                <input id="stCommander" placeholder="Ví dụ: Trung tá Nguyễn Văn A" class="w-full p-2.5 rounded-xl border border-slate-300" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Số điện thoại Trực ban</label>
+                <input id="stHotline" placeholder="Ví dụ: 02153.875.888" class="w-full p-2.5 rounded-xl border border-slate-300" />
+              </div>
+              <button type="submit" class="w-full py-3 bg-[#006837] hover:bg-[#004d28] text-yellow-300 font-black rounded-xl shadow uppercase">Lưu Vào Firestore & Đồng Bộ Sang App</button>
+            </form>
+          </div>
+          <div id="cmsStationsList" class="lg:col-span-2 space-y-3"></div>
+        </section>
+
+        <!-- SECTION 3: KIỂM DUYỆT BÀI ĐĂNG -->
+        <section id="cmsSec-posts" class="hidden bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+          <h3 class="font-black text-sm text-[#004222] uppercase">Quản Trị & Kiểm Duyệt Bài Đăng Gửi Từ App</h3>
+          <div id="cmsPostsList" class="space-y-3"></div>
+        </section>
+
+        <!-- SECTION 4: ĐIỀU PHỐI TIN BÁO -->
+        <section id="cmsSec-reports" class="hidden bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+          <h3 class="font-black text-sm text-[#004222] uppercase">Quản Trị & Điều Phối Hồ Sơ Tin Báo Từ App</h3>
+          <div id="cmsReportsList" class="space-y-3"></div>
+        </section>
+
+        <!-- SECTION 5: CẤU HÌNH APP & LOGO -->
+        <section id="cmsSec-branding" class="hidden max-w-2xl bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+          <div class="flex items-center gap-4 pb-4 border-b border-slate-100">
+            <img id="brandingPreviewLogo" src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" class="w-20 h-20 rounded-full bg-white p-0.5 object-contain shrink-0 border" />
+            <div>
+              <h3 class="font-black text-base text-[#004222] uppercase">Cấu Hình Từ Xa Giao Diện App & Ảnh Logo Bộ Đội Biên Phòng Việt Nam</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Thay đổi tại Web CMS sẽ được lưu lên Cloud Firestore (bdbp-43b31) và cập nhật tức thời sang Ứng dụng (index.html).</p>
+            </div>
+          </div>
+          <form id="brandingForm" class="space-y-4 text-xs">
+            <div>
+              <label class="block font-black text-[#004222] uppercase mb-1">Tải file ảnh Logo chính thức từ máy tính (PNG / JPG):</label>
+              <input type="file" id="logoFileInput" accept="image/*" class="w-full p-2.5 rounded-xl border-2 border-dashed border-[#006837] bg-[#f4f9f6] font-semibold cursor-pointer" />
+            </div>
+            <div>
+              <label class="block font-black text-[#004222] uppercase mb-1">Hoặc đường dẫn URL ảnh Logo Bộ đội Biên phòng Việt Nam:</label>
+              <input id="cfgLogoUrl" value="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" class="w-full p-3 rounded-xl border border-slate-300 font-mono" />
+            </div>
+            <div>
+              <label class="block font-black text-[#004222] uppercase mb-1">Tên Ứng Dụng Hiển Thị Trên App:</label>
+              <input id="cfgAppName" value="BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN" class="w-full p-3 rounded-xl border border-slate-300 font-bold" />
+            </div>
+            <div>
+              <label class="block font-black text-[#004222] uppercase mb-1">Số Điện Thoại Trực Ban Tác Chiến Tỉnh:</label>
+              <input id="cfgHotline" value="02153.825.112" class="w-full p-3 rounded-xl border border-slate-300 font-bold" />
+            </div>
+            <div>
+              <label class="block font-black text-[#004222] uppercase mb-1">Khẩu Hiệu Truyền Thống:</label>
+              <input id="cfgSlogan" value="Đồn là nhà, biên giới là quê hương, đồng bào các dân tộc là anh em ruột thịt" class="w-full p-3 rounded-xl border border-slate-300" />
+            </div>
+            <button type="submit" class="w-full py-3.5 bg-[#006837] hover:bg-[#004d28] text-yellow-300 font-black uppercase rounded-xl shadow-lg">Lưu Lên Firebase & Đồng Bộ Sang App Ngay Lập Tức</button>
+          </form>
+        </section>
+
+        <!-- SECTION 6: NHẬT KÝ AUDIT LOGS -->
+        <section id="cmsSec-logs" class="hidden bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+          <h3 class="font-black text-sm text-[#004222] uppercase">Nhật Ký Kiểm Toán Thời Gian Thực Từ App & Web CMS</h3>
+          <div id="cmsLogsList" class="space-y-2"></div>
+        </section>
       </div>
     </div>
+  </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="bg-white p-5 rounded-2xl shadow border border-slate-200 space-y-3">
-        <h2 class="font-black text-sm text-[#004222] uppercase">📰 Kiểm Duyệt & Quản Lý Bài Đăng Từ App</h2>
-        <div id="cmsPostsList" class="space-y-3 text-xs"></div>
-      </div>
-      <div class="bg-white p-5 rounded-2xl shadow border border-slate-200 space-y-3">
-        <h2 class="font-black text-sm text-[#004222] uppercase">🚨 Điều Phối Tin Báo Từ Người Dân</h2>
-        <div id="cmsReportsList" class="space-y-3 text-xs"></div>
-      </div>
-    </div>
-  </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, doc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-  <script>
-    let POSTS = [
+    const firebaseConfig = {
+  "apiKey": "AIzaSy_YOUR_BDBP_43B31_API_KEY",
+  "authDomain": "bdbp-43b31.firebaseapp.com",
+  "projectId": "bdbp-43b31",
+  "storageBucket": "bdbp-43b31.firebasestorage.app",
+  "appId": "1:000000000000:web:bdbp43b31"
+};
+    const APP_ID = "bdbp-43b31";
+    const syncChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('bdbp_db_realtime_sync') : null;
+
+    let CONFIG = JSON.parse(localStorage.getItem('bdbp_config') || 'null') || {
+  "appName": "BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN",
+  "logoUrl": "https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png",
+  "hotlineCommand": "02153.825.112",
+  "slogan": "Đồn là nhà, biên giới là quê hương, đồng bào các dân tộc là anh em ruột thịt",
+  "firebaseProjectId": "bdbp-43b31",
+  "firebaseConsoleUrl": "https://console.firebase.google.com/u/0/project/bdbp-43b31/overview",
+  "firebaseApiKey": ""
+};
+    let STATIONS = JSON.parse(localStorage.getItem('bdbp_stations') || 'null') || [
   {
-    "id": "aGBkATeLUoGaSMKWtMju",
+    "id": "don_apachai",
+    "code": "DBP-701",
+    "name": "Đồn Biên phòng A Pa Chải",
+    "hotline": "02153.875.111",
+    "area": "Xã Sín Thầu, Huyện Mường Nhé, Tỉnh Điện Biên",
+    "commander": "Thượng tá Nguyễn Đức Cảnh",
+    "markers": "Mốc quốc giới số 0 (Việt - Trung - Lào) đến Mốc 9 (Tuyến Việt - Trung & Việt - Lào)",
+    "status": "active"
+  },
+  {
+    "id": "don_lengsusin",
+    "commander": "Trung tá Lò Văn Minh",
+    "hotline": "02153.875.222",
+    "name": "Đồn Biên phòng Leng Su Sìn",
+    "markers": "Mốc quốc giới số 10 đến Mốc 28",
+    "status": "active",
+    "code": "DBP-703",
+    "area": "Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé"
+  },
+  {
+    "id": "don_nacosa",
+    "markers": "Mốc quốc giới số 55 đến Mốc 65",
+    "status": "active",
+    "commander": "Trung tá Giàng A Chư",
+    "area": "Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ",
+    "code": "DBP-707",
+    "hotline": "02153.875.289",
+    "name": "Đồn Biên phòng Na Cô Sa"
+  },
+  {
+    "id": "don_muongmon",
+    "markers": "Mốc quốc giới số 81 đến Mốc 89",
+    "name": "Đồn Biên phòng Mường Mơn",
+    "code": "DBP-711",
+    "hotline": "02153.875.333",
+    "area": "Xã Mường Mơn, Huyện Mường Chà",
+    "status": "active",
+    "commander": "Thiếu tá Hoàng Văn Thái"
+  },
+  {
+    "id": "don_pathom",
+    "status": "active",
+    "area": "Xã Pa Thơm, Huyện Điện Biên",
+    "markers": "Mốc quốc giới số 110 đến Mốc 112",
+    "code": "DBP-715",
+    "name": "Đồn Biên phòng Pa Thơm",
+    "hotline": "02153.875.444",
+    "commander": "Trung tá Lê Đình Quyền"
+  },
+  {
+    "id": "don_taytrang",
+    "code": "DBP-717",
+    "name": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "area": "Xã Na Ư, Huyện Điện Biên",
+    "markers": "Cửa khẩu Quốc tế Tây Trang - Pang Hok (Mốc quốc giới 113 - 115)",
+    "commander": "Thượng tá Vũ Văn Biển",
+    "hotline": "02153.875.555",
+    "status": "active"
+  },
+  {
+    "id": "don_muongnha",
+    "code": "DBP-721",
+    "name": "Đồn Biên phòng Mường Nhà",
+    "area": "Xã Mường Nhà & Xã Na Tông, Huyện Điện Biên",
+    "markers": "Mốc quốc giới số 126 đến Mốc 138",
+    "commander": "Thượng tá Trần Đình Dũng",
+    "hotline": "02153.875.666",
+    "status": "active"
+  }
+];
+    let POSTS = JSON.parse(localStorage.getItem('bdbp_posts') || 'null') || [
+  {
+    "id": "jCNu0fU7XD8aAvNLpHg9",
     "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
     "authorRole": "dan",
     "stationId": "don_lengsusin",
@@ -79,7 +362,7 @@
     "comments": []
   },
   {
-    "id": "ZadMhMLXoJLQNWgCWyIT",
+    "id": "CWcYjM0EApFOR1xvjz3P",
     "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
     "authorRole": "don_bp",
     "stationId": "don_taytrang",
@@ -97,21 +380,21 @@
     "comments": []
   },
   {
-    "id": "kOJGSQxnM7Wh1RtlHc47",
-    "approvedBy": "Đồn Biên phòng A Pa Chải",
-    "likes": 56,
+    "id": "aUCqC1hdUXKnu61R7lwx",
+    "authorRole": "dan",
+    "timestamp": 1761700000000,
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
     "stationId": "don_apachai",
+    "likes": 56,
+    "status": "approved",
     "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
+    "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "createdAt": "29/10/2026 07:30",
+    "approvedBy": "Đồn Biên phòng A Pa Chải",
     "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
     "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
-    "status": "approved",
-    "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
     "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
-    "timestamp": 1761700000000,
-    "authorRole": "dan",
-    "createdAt": "29/10/2026 07:30",
-    "stationName": "Đồn Biên phòng A Pa Chải",
-    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
     "comments": [
       {
         "id": "cm1",
@@ -123,9 +406,9 @@
     ]
   }
 ];
-    let REPORTS = [
+    let REPORTS = JSON.parse(localStorage.getItem('bdbp_reports') || 'null') || [
   {
-    "id": "ADi62cssNx7lrCmiiiKH",
+    "id": "kQhQ5QllmYK63XCHJmL3",
     "code": "TB-DB-102",
     "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
     "senderPhone": "0984.556.789",
@@ -155,7 +438,7 @@
     ]
   },
   {
-    "id": "SWsBh0Mtx0ABrdclsFH5",
+    "id": "9Y1jk7zjmR4MdYqTXChV",
     "code": "TB-DB-101",
     "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
     "senderPhone": "0912.345.678",
@@ -191,50 +474,291 @@
     ]
   }
 ];
+    let LOGS = JSON.parse(localStorage.getItem('bdbp_logs') || 'null') || [];
+    let db = null;
 
-    window.cmsApprovePost = (id) => {
-      POSTS = POSTS.map(p => p.id === id ? { ...p, status: 'approved', approvedBy: 'Web CMS Quản Trị' } : p);
+    function showToast(title, desc) {
+      const el = document.getElementById('cmsToast');
+      document.getElementById('cmsToastTitle').textContent = title;
+      document.getElementById('cmsToastDesc').textContent = desc;
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 4000);
+    }
+
+    function persistSharedState() {
+      try {
+        localStorage.setItem('bdbp_config', JSON.stringify(CONFIG));
+        localStorage.setItem('bdbp_stations', JSON.stringify(STATIONS));
+        localStorage.setItem('bdbp_posts', JSON.stringify(POSTS));
+        localStorage.setItem('bdbp_reports', JSON.stringify(REPORTS));
+        localStorage.setItem('bdbp_logs', JSON.stringify(LOGS));
+        if (syncChannel) syncChannel.postMessage({ type: 'SYNC' });
+      } catch (e) {}
+    }
+
+    if (syncChannel) {
+      syncChannel.onmessage = () => {
+        CONFIG = JSON.parse(localStorage.getItem('bdbp_config') || 'null') || CONFIG;
+        STATIONS = JSON.parse(localStorage.getItem('bdbp_stations') || 'null') || STATIONS;
+        POSTS = JSON.parse(localStorage.getItem('bdbp_posts') || 'null') || POSTS;
+        REPORTS = JSON.parse(localStorage.getItem('bdbp_reports') || 'null') || REPORTS;
+        LOGS = JSON.parse(localStorage.getItem('bdbp_logs') || 'null') || LOGS;
+        renderCMS();
+      };
+    }
+
+    window.toggleCmsLogin = (loggedIn) => {
+      document.getElementById('cmsLoginScreen').classList.toggle('hidden', loggedIn);
+      document.getElementById('cmsMainWorkspace').classList.toggle('hidden', !loggedIn);
+    };
+
+    window.switchCmsSection = (sec) => {
+      ['overview', 'stations', 'posts', 'reports', 'branding', 'logs'].forEach(s => {
+        document.getElementById('cmsSec-' + s).classList.toggle('hidden', s !== sec);
+        const navBtn = document.getElementById('cmsNav-' + s);
+        if (navBtn) {
+          navBtn.className = s === sec
+            ? 'w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-black bg-amber-400 text-slate-950 shadow-md'
+            : 'w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#003d20]';
+        }
+      });
       renderCMS();
     };
-    window.cmsDeletePost = (id) => {
+
+    window.editStation = (id) => {
+      const st = STATIONS.find(s => s.id === id);
+      if (!st) return;
+      document.getElementById('stId').value = st.id;
+      document.getElementById('stCode').value = st.code || '';
+      document.getElementById('stName').value = st.name || '';
+      document.getElementById('stArea').value = st.area || '';
+      document.getElementById('stMarkers').value = st.markers || '';
+      document.getElementById('stCommander').value = st.commander || '';
+      document.getElementById('stHotline').value = st.hotline || '';
+    };
+
+    window.deleteStation = async (id, name) => {
+      STATIONS = STATIONS.filter(s => s.id !== id);
+      LOGS = [{ id: 'log_' + Date.now(), tier: 'WEB CMS', actor: 'Quản trị viên Tỉnh', action: 'Xóa Đồn Biên phòng', target: name, detail: id, time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
+      renderCMS();
+      showToast('Web CMS: Đã xóa Đồn Biên phòng', 'Đã gỡ ' + name + ' và đồng bộ sang App.');
+      if (db) await deleteDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'stations', id)).catch(()=>{});
+    };
+
+    window.cmsApprovePost = async (id) => {
+      POSTS = POSTS.map(p => p.id === id ? { ...p, status: 'approved', approvedBy: 'Ban Chỉ huy BĐBP Tỉnh (Web CMS)' } : p);
+      LOGS = [{ id: 'log_' + Date.now(), tier: 'WEB CMS', actor: 'Quản trị viên Tỉnh', action: 'Duyệt xuất bản bài đăng', target: id, detail: 'Hiển thị lên App', time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
+      renderCMS();
+      showToast('Web CMS: Đã duyệt bài viết!', 'Bài viết đã hiển thị công khai trên App (index.html).');
+      if (db) await updateDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'posts', id), { status: 'approved', approvedBy: 'Ban Chỉ huy BĐBP Tỉnh (Web CMS)' }).catch(()=>{});
+    };
+
+    window.cmsDeletePost = async (id) => {
       POSTS = POSTS.filter(p => p.id !== id);
+      LOGS = [{ id: 'log_' + Date.now(), tier: 'WEB CMS', actor: 'Quản trị viên Tỉnh', action: 'Xóa bài đăng khỏi hệ thống', target: id, detail: 'Thực hiện từ Web CMS', time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
       renderCMS();
+      showToast('Web CMS: Đã xóa bài đăng!', 'Bài viết đã được gỡ bỏ khỏi App và Firebase.');
+      if (db) await deleteDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'posts', id)).catch(()=>{});
     };
-    window.cmsResolveReport = (id) => {
-      REPORTS = REPORTS.map(r => r.id === id ? { ...r, status: 'resolved' } : r);
+
+    window.cmsUpdateReport = async (id, newStatus) => {
+      REPORTS = REPORTS.map(r => r.id === id ? { ...r, status: newStatus } : r);
+      LOGS = [{ id: 'log_' + Date.now(), tier: 'WEB CMS', actor: 'Quản trị viên Tỉnh', action: 'Điều phối tin báo -> ' + newStatus, target: id, detail: 'Chỉ đạo từ Web CMS', time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
       renderCMS();
+      showToast('Web CMS: Đã cập nhật tin báo!', 'Trạng thái hồ sơ tin báo đã đồng bộ sang App.');
+      if (db) await updateDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'reports', id), { status: newStatus }).catch(()=>{});
     };
+
+    window.cmsDeleteReport = async (id) => {
+      REPORTS = REPORTS.filter(r => r.id !== id);
+      LOGS = [{ id: 'log_' + Date.now(), tier: 'WEB CMS', actor: 'Quản trị viên Tỉnh', action: 'Xóa hồ sơ tin báo', target: id, detail: 'Thực hiện từ Web CMS', time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
+      renderCMS();
+      showToast('Web CMS: Đã xóa hồ sơ tin báo!', 'Đã gỡ hồ sơ khỏi hệ thống.');
+      if (db) await deleteDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'reports', id)).catch(()=>{});
+    };
+
+    document.getElementById('stationForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const rawId = document.getElementById('stId').value.trim();
+      const nameVal = document.getElementById('stName').value.trim();
+      const docId = rawId || ('don_' + Date.now());
+      const stObj = {
+        id: docId,
+        code: document.getElementById('stCode').value.trim() || ('DBP-' + Math.floor(700 + Math.random() * 99)),
+        name: nameVal,
+        area: document.getElementById('stArea').value.trim(),
+        markers: document.getElementById('stMarkers').value.trim() || 'Tuyến biên giới Tỉnh Điện Biên',
+        commander: document.getElementById('stCommander').value.trim() || 'Ban Chỉ huy Đồn',
+        hotline: document.getElementById('stHotline').value.trim() || '02153.875.000',
+        status: 'active'
+      };
+      const exists = STATIONS.some(s => s.id === docId);
+      STATIONS = exists ? STATIONS.map(s => s.id === docId ? stObj : s) : [...STATIONS, stObj];
+      LOGS = [{ id: 'log_' + Date.now(), tier: 'WEB CMS', actor: 'Quản trị viên Tỉnh', action: 'Lưu Đồn Biên phòng', target: stObj.name, detail: stObj.area, time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
+      e.target.reset();
+      document.getElementById('stId').value = '';
+      renderCMS();
+      showToast('Web CMS: Đã lưu Đồn Biên phòng!', stObj.name + ' đã được đồng bộ sang App ngay lập tức.');
+      if (db) await setDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'stations', docId), stObj).catch(()=>{});
+    });
+
+    document.getElementById('logoFileInput').addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          document.getElementById('cfgLogoUrl').value = reader.result;
+          document.getElementById('brandingPreviewLogo').src = reader.result;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('brandingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      CONFIG = {
+        ...CONFIG,
+        logoUrl: document.getElementById('cfgLogoUrl').value.trim(),
+        appName: document.getElementById('cfgAppName').value.trim(),
+        hotlineCommand: document.getElementById('cfgHotline').value.trim(),
+        slogan: document.getElementById('cfgSlogan').value.trim()
+      };
+      LOGS = [{ id: 'log_' + Date.now(), tier: 'WEB CMS', actor: 'Quản trị viên Tỉnh', action: 'Cập nhật cấu hình & Logo App', target: CONFIG.appName, detail: 'Đồng bộ sang App', time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
+      renderCMS();
+      showToast('Web CMS: Đã lưu cấu hình & Logo!', 'Giao diện App (index.html) đã tự động cập nhật.');
+      if (db) await setDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'settings', 'general'), CONFIG).catch(()=>{});
+    });
 
     function renderCMS() {
-      document.getElementById('cmsPostCount').textContent = POSTS.length;
-      document.getElementById('cmsReportCount').textContent = REPORTS.length;
-      document.getElementById('cmsPostsList').innerHTML = POSTS.map(p => `
-        <div class="p-3.5 rounded-xl border border-slate-200 flex justify-between items-center gap-3">
-          <div>
-            <span class="px-2 py-0.5 rounded font-black text-[10px] uppercase ${p.status === 'approved' ? 'bg-emerald-100 text-[#00522b]' : 'bg-amber-300 text-slate-900'}">${p.status}</span>
-            <strong class="ml-1">${p.stationName}</strong>
-            <div class="font-bold text-slate-900 mt-1">${p.title}</div>
+      document.getElementById('sidebarLogoImg').src = CONFIG.logoUrl;
+      document.getElementById('topRightLogoImg').src = CONFIG.logoUrl;
+      document.getElementById('loginLogoImg').src = CONFIG.logoUrl;
+      document.getElementById('brandingPreviewLogo').src = CONFIG.logoUrl;
+      document.getElementById('cmsHeaderTitle').textContent = 'Hệ Thống Quản Trị Cơ Sở Dữ Liệu Trung Tâm — ' + CONFIG.appName;
+
+      document.getElementById('navStationCount').textContent = STATIONS.length;
+      document.getElementById('navPostCount').textContent = POSTS.length;
+      document.getElementById('navReportCount').textContent = REPORTS.length;
+      document.getElementById('navLogCount').textContent = LOGS.length;
+
+      document.getElementById('statStations').textContent = STATIONS.length;
+      document.getElementById('statPendingPosts').textContent = POSTS.filter(p => p.status === 'pending').length;
+      document.getElementById('statTotalPosts').textContent = 'Tổng số bài trên App: ' + POSTS.length;
+      document.getElementById('statReports').textContent = REPORTS.length;
+      document.getElementById('statUrgentReports').textContent = 'Khẩn cấp: ' + REPORTS.filter(r => r.priority === 'urgent').length + ' vụ việc';
+      document.getElementById('statLogs').textContent = LOGS.length;
+
+      document.getElementById('overviewTableBody').innerHTML = STATIONS.map(st => {
+        const pCount = POSTS.filter(p => p.stationId === st.id).length;
+        const rCount = REPORTS.filter(r => r.stationId === st.id).length;
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-3 font-mono font-bold text-[#006837]">${st.code}</td>
+            <td class="p-3 font-black text-slate-900">${st.name}</td>
+            <td class="p-3 text-slate-600">${st.area}</td>
+            <td class="p-3 font-bold">${pCount} bài</td>
+            <td class="p-3 font-bold text-red-600">${rCount} tin báo</td>
+            <td class="p-3 font-mono text-slate-700">${st.hotline}</td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('cmsStationsList').innerHTML = STATIONS.map(st => `
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="space-y-1 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="bg-[#006837] text-yellow-300 font-mono font-black px-2 py-0.5 rounded">${st.code}</span>
+              <h4 class="font-black text-sm text-[#00381d]">${st.name}</h4>
+            </div>
+            <p class="text-slate-600"><b>Địa bàn:</b> ${st.area}</p>
+            <p class="text-slate-600"><b>Cột mốc:</b> ${st.markers} • <b>Chỉ huy:</b> ${st.commander}</p>
           </div>
-          <div class="flex gap-1.5 shrink-0">
-            ${p.status !== 'approved' ? `<button onclick="cmsApprovePost('${p.id}')" class="bg-[#006837] text-yellow-300 font-black px-3 py-1.5 rounded-lg">Duyệt</button>` : ''}
-            <button onclick="cmsDeletePost('${p.id}')" class="bg-red-100 text-red-700 font-bold px-3 py-1.5 rounded-lg">Xóa</button>
+          <div class="flex items-center gap-2">
+            <button onclick="editStation('${st.id}')" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-emerald-100 text-[#00522b] text-xs font-bold">✎ Sửa</button>
+            <button onclick="deleteStation('${st.id}', '${st.name}')" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold">✕ Xóa</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('cmsPostsList').innerHTML = POSTS.map(p => `
+        <div class="p-4 rounded-2xl border border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="space-y-1 text-xs flex-1">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2 py-0.5 rounded font-black text-[10px] uppercase ${p.status === 'approved' ? 'bg-emerald-100 text-[#00522b]' : 'bg-amber-300 text-[#00381d]'}">
+                ${p.status === 'approved' ? 'Đã duyệt hiển thị trên App' : 'Chờ duyệt'}
+              </span>
+              <span class="font-bold text-[#006837]">${p.stationName}</span>
+              <span class="text-slate-500">• Người đăng: <b>${p.authorName}</b> (${p.createdAt || ''})</span>
+            </div>
+            <h4 class="font-black text-sm text-slate-900">${p.title}</h4>
+            <p class="text-slate-600">${p.content}</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            ${p.status !== 'approved' ? `<button onclick="cmsApprovePost('${p.id}')" class="bg-[#006837] text-yellow-300 font-black text-xs px-3.5 py-2 rounded-xl">✓ Duyệt Xuất Bản Lên App</button>` : ''}
+            <button onclick="cmsDeletePost('${p.id}')" class="bg-red-100 hover:bg-red-200 text-red-700 font-bold text-xs px-3.5 py-2 rounded-xl">✕ Xóa khỏi Firebase</button>
           </div>
         </div>
       `).join('');
 
       document.getElementById('cmsReportsList').innerHTML = REPORTS.map(r => `
-        <div class="p-3.5 rounded-xl border border-slate-200 flex justify-between items-center gap-3">
-          <div>
-            <span class="bg-red-600 text-white font-mono font-black px-2 py-0.5 rounded text-[10px]">${r.code || r.id}</span>
-            <strong class="ml-1">${r.stationName}</strong>
-            <div class="font-bold text-slate-900 mt-1">${r.title}</div>
-            <div class="text-slate-500">Trạng thái: <b>${r.status}</b></div>
+        <div class="p-4 rounded-2xl border border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="space-y-1 text-xs flex-1">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="bg-red-600 text-white font-mono font-black px-2 py-0.5 rounded">${r.code || r.id}</span>
+              <span class="font-black text-[#00522b]">📍 ${r.stationName}</span>
+              <span class="text-slate-500">• Người báo: <b>${r.senderName}</b> (${r.senderPhone}) • Trạng thái: <b class="uppercase text-[#006837]">${r.status}</b></span>
+            </div>
+            <h4 class="font-black text-sm text-slate-900">${r.title}</h4>
+            <p class="text-slate-600">${r.description}</p>
           </div>
-          <button onclick="cmsResolveReport('${r.id}')" class="bg-[#006837] text-yellow-300 font-black px-3 py-1.5 rounded-lg shrink-0">Hoàn tất</button>
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <button onclick="cmsUpdateReport('${r.id}', 'in_progress')" class="bg-purple-700 text-white font-bold text-xs px-3 py-2 rounded-xl">Chỉ đạo xử lý</button>
+            <button onclick="cmsUpdateReport('${r.id}', 'resolved')" class="bg-[#006837] text-yellow-300 font-black text-xs px-3 py-2 rounded-xl">Hoàn tất</button>
+            <button onclick="cmsDeleteReport('${r.id}')" class="bg-red-100 text-red-700 font-bold text-xs px-3 py-2 rounded-xl">✕ Xóa</button>
+          </div>
         </div>
       `).join('');
+
+      document.getElementById('cmsLogsList').innerHTML = LOGS.length === 0
+        ? '<p class="text-xs text-slate-500 py-6 text-center">Chưa có nhật ký thao tác mới.</p>'
+        : LOGS.map(l => `
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="bg-[#006837] text-yellow-300 font-black px-2 py-0.5 rounded text-[10px] mr-2">${l.tier || 'CMS'}</span>
+              <strong class="text-slate-900">${l.actor}</strong> — <span class="font-bold text-[#00522b]">${l.action}</span>: <span class="text-slate-700">${l.target}</span> (${l.detail || ''})
+            </div>
+            <span class="font-mono text-[10px] text-slate-400">${l.time}</span>
+          </div>
+        `).join('');
     }
+
     renderCMS();
+
+    try {
+      if (firebaseConfig.apiKey && !firebaseConfig.apiKey.includes('YOUR_')) {
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        db = getFirestore(app);
+        await signInAnonymously(auth);
+        onSnapshot(collection(db, 'artifacts', APP_ID, 'public', 'data', 'stations'), (snap) => {
+          if (!snap.empty) { STATIONS = snap.docs.map(d => ({ id: d.id, ...d.data() })); persistSharedState(); renderCMS(); }
+        });
+        onSnapshot(collection(db, 'artifacts', APP_ID, 'public', 'data', 'posts'), (snap) => {
+          if (!snap.empty) { POSTS = snap.docs.map(d => ({ id: d.id, ...d.data() })); persistSharedState(); renderCMS(); }
+        });
+        onSnapshot(collection(db, 'artifacts', APP_ID, 'public', 'data', 'reports'), (snap) => {
+          if (!snap.empty) { REPORTS = snap.docs.map(d => ({ id: d.id, ...d.data() })); persistSharedState(); renderCMS(); }
+        });
+      }
+    } catch (e) {}
   </script>
 </body>
 </html>
