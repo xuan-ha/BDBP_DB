@@ -1,71 +1,74 @@
 {
-  "exportedAt": "2026-10-29T03:54:17.370Z",
+  "exportedAt": "2026-10-29T07:00:09.102Z",
   "appConfig": {
     "appName": "BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN",
     "logoUrl": "https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png",
     "hotlineCommand": "02153.825.112",
-    "slogan": "Đồn là nhà, biên giới là quê hương, đồng bào các dân tộc là anh em ruột thịt"
+    "slogan": "Đồn là nhà, biên giới là quê hương, đồng bào các dân tộc là anh em ruột thịt",
+    "firebaseProjectId": "bdbp-43b31",
+    "firebaseConsoleUrl": "https://console.firebase.google.com/u/0/project/bdbp-43b31/overview",
+    "firebaseApiKey": ""
   },
   "stations": [
     {
       "id": "don_apachai",
-      "hotline": "02153.875.111",
+      "area": "Xã Sín Thầu, Huyện Mường Nhé, Tỉnh Điện Biên",
       "commander": "Thượng tá Nguyễn Đức Cảnh",
+      "markers": "Mốc quốc giới số 0 (Việt - Trung - Lào) đến Mốc 9 (Tuyến Việt - Trung & Việt - Lào)",
+      "status": "active",
       "name": "Đồn Biên phòng A Pa Chải",
       "code": "DBP-701",
-      "area": "Xã Sín Thầu, Huyện Mường Nhé, Tỉnh Điện Biên",
-      "markers": "Mốc quốc giới số 0 (Việt - Trung - Lào) đến Mốc 9 (Tuyến Việt - Trung & Việt - Lào)",
-      "status": "active"
+      "hotline": "02153.875.111"
     },
     {
       "id": "don_lengsusin",
-      "status": "active",
-      "name": "Đồn Biên phòng Leng Su Sìn",
+      "markers": "Mốc quốc giới số 10 đến Mốc 28",
       "code": "DBP-703",
-      "commander": "Trung tá Lò Văn Minh",
-      "area": "Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé",
+      "name": "Đồn Biên phòng Leng Su Sìn",
+      "status": "active",
       "hotline": "02153.875.222",
-      "markers": "Mốc quốc giới số 10 đến Mốc 28"
+      "area": "Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé",
+      "commander": "Trung tá Lò Văn Minh"
     },
     {
       "id": "don_nacosa",
-      "markers": "Mốc quốc giới số 55 đến Mốc 65",
       "name": "Đồn Biên phòng Na Cô Sa",
-      "area": "Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ",
+      "hotline": "02153.875.289",
       "code": "DBP-707",
       "status": "active",
+      "area": "Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ",
       "commander": "Trung tá Giàng A Chư",
-      "hotline": "02153.875.289"
+      "markers": "Mốc quốc giới số 55 đến Mốc 65"
     },
     {
       "id": "don_muongmon",
-      "name": "Đồn Biên phòng Mường Mơn",
-      "status": "active",
       "area": "Xã Mường Mơn, Huyện Mường Chà",
-      "code": "DBP-711",
+      "markers": "Mốc quốc giới số 81 đến Mốc 89",
+      "name": "Đồn Biên phòng Mường Mơn",
       "hotline": "02153.875.333",
       "commander": "Thiếu tá Hoàng Văn Thái",
-      "markers": "Mốc quốc giới số 81 đến Mốc 89"
+      "code": "DBP-711",
+      "status": "active"
     },
     {
       "id": "don_pathom",
-      "hotline": "02153.875.444",
-      "commander": "Trung tá Lê Đình Quyền",
-      "status": "active",
-      "markers": "Mốc quốc giới số 110 đến Mốc 112",
-      "code": "DBP-715",
       "area": "Xã Pa Thơm, Huyện Điện Biên",
-      "name": "Đồn Biên phòng Pa Thơm"
+      "commander": "Trung tá Lê Đình Quyền",
+      "hotline": "02153.875.444",
+      "status": "active",
+      "name": "Đồn Biên phòng Pa Thơm",
+      "markers": "Mốc quốc giới số 110 đến Mốc 112",
+      "code": "DBP-715"
     },
     {
       "id": "don_taytrang",
-      "status": "active",
-      "name": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
-      "hotline": "02153.875.555",
-      "area": "Xã Na Ư, Huyện Điện Biên",
-      "code": "DBP-717",
       "markers": "Cửa khẩu Quốc tế Tây Trang - Pang Hok (Mốc quốc giới 113 - 115)",
-      "commander": "Thượng tá Vũ Văn Biển"
+      "name": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+      "code": "DBP-717",
+      "status": "active",
+      "hotline": "02153.875.555",
+      "commander": "Thượng tá Vũ Văn Biển",
+      "area": "Xã Na Ư, Huyện Điện Biên"
     },
     {
       "id": "don_muongnha",
@@ -80,243 +83,57 @@
   ],
   "posts": [
     {
-      "id": "K7qKzYoicjFPukY2yIBf",
-      "commentsJson": "[]",
-      "areaLabel": "Xã Leng Su Sìn, Huyện Mường Nhé",
-      "authorRole": "dan",
-      "approvedBy": "",
-      "content": "Sau cơn mưa lớn rạng sáng nay, đoạn dốc gần suối bản Chung Chải đi về hướng Mốc 18 có một số tảng đá lăn từ taluy dương xuống mặt đường. Bà con đi thu hoạch nông sản chú ý quan sát.",
-      "stationId": "don_lengsusin",
-      "createdAt": "29/10/2026 09:00",
-      "stationName": "Đồn Biên phòng Leng Su Sìn",
-      "timestamp": 1761706000000,
-      "status": "pending",
-      "likes": 0,
-      "title": "Cảnh báo sạt lở đất đá nhỏ trên tuyến đường dân sinh vào khu vực Mốc 18 sau mưa đêm",
-      "image": "",
+      "id": "aGBkATeLUoGaSMKWtMju",
       "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
-      "comments": []
-    },
-    {
-      "id": "at1vgEU81WqreqJZvWUb",
-      "stationName": "Đồn Biên phòng Leng Su Sìn",
-      "areaLabel": "Xã Leng Su Sìn, Huyện Mường Nhé",
-      "commentsJson": "[]",
-      "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
-      "approvedBy": "",
-      "createdAt": "29/10/2026 09:00",
       "authorRole": "dan",
       "stationId": "don_lengsusin",
-      "content": "Sau cơn mưa lớn rạng sáng nay, đoạn dốc gần suối bản Chung Chải đi về hướng Mốc 18 có một số tảng đá lăn từ taluy dương xuống mặt đường. Bà con đi thu hoạch nông sản chú ý quan sát.",
-      "status": "pending",
-      "timestamp": 1761706000000,
-      "likes": 0,
-      "image": "",
-      "title": "Cảnh báo sạt lở đất đá nhỏ trên tuyến đường dân sinh vào khu vực Mốc 18 sau mưa đêm",
-      "comments": []
-    },
-    {
-      "id": "eZ62wYMf3A8CKZKMRY5f",
       "stationName": "Đồn Biên phòng Leng Su Sìn",
       "areaLabel": "Xã Leng Su Sìn, Huyện Mường Nhé",
-      "commentsJson": "[]",
-      "authorRole": "dan",
-      "approvedBy": "",
-      "stationId": "don_lengsusin",
-      "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
-      "image": "",
       "title": "Cảnh báo sạt lở đất đá nhỏ trên tuyến đường dân sinh vào khu vực Mốc 18 sau mưa đêm",
-      "createdAt": "29/10/2026 09:00",
-      "status": "pending",
-      "likes": 0,
-      "timestamp": 1761706000000,
       "content": "Sau cơn mưa lớn rạng sáng nay, đoạn dốc gần suối bản Chung Chải đi về hướng Mốc 18 có một số tảng đá lăn từ taluy dương xuống mặt đường. Bà con đi thu hoạch nông sản chú ý quan sát.",
-      "comments": []
-    },
-    {
-      "id": "ryLHNWC8JQvDajis9BGm",
+      "image": "",
       "status": "pending",
-      "commentsJson": "[]",
-      "authorRole": "dan",
       "approvedBy": "",
-      "areaLabel": "Xã Leng Su Sìn, Huyện Mường Nhé",
-      "timestamp": 1761706000000,
-      "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
-      "createdAt": "29/10/2026 09:00",
-      "image": "",
-      "title": "Cảnh báo sạt lở đất đá nhỏ trên tuyến đường dân sinh vào khu vực Mốc 18 sau mưa đêm",
       "likes": 0,
-      "content": "Sau cơn mưa lớn rạng sáng nay, đoạn dốc gần suối bản Chung Chải đi về hướng Mốc 18 có một số tảng đá lăn từ taluy dương xuống mặt đường. Bà con đi thu hoạch nông sản chú ý quan sát.",
-      "stationName": "Đồn Biên phòng Leng Su Sìn",
-      "stationId": "don_lengsusin",
+      "createdAt": "29/10/2026 09:00",
+      "timestamp": 1761706000000,
+      "commentsJson": "[]",
       "comments": []
     },
     {
-      "id": "1kXnwtXpeDoNdTNwRpeM",
+      "id": "ZadMhMLXoJLQNWgCWyIT",
       "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
-      "timestamp": 1761703000000,
-      "status": "approved",
+      "authorRole": "don_bp",
       "stationId": "don_taytrang",
-      "createdAt": "29/10/2026 08:15",
-      "title": "THÔNG BÁO: Tuyên truyền Luật Biên phòng Việt Nam và khám bệnh, cấp phát thuốc miễn phí tại xã Na Ư",
-      "image": "",
-      "likes": 82,
       "stationName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
       "areaLabel": "Xã Na Ư, Huyện Điện Biên",
-      "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
-      "commentsJson": "[]",
-      "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
-      "authorRole": "don_bp",
-      "comments": []
-    },
-    {
-      "id": "jZMmXR5Fq5p0EF0Tfp7M",
-      "authorRole": "don_bp",
-      "areaLabel": "Xã Na Ư, Huyện Điện Biên",
-      "commentsJson": "[]",
-      "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
-      "image": "",
       "title": "THÔNG BÁO: Tuyên truyền Luật Biên phòng Việt Nam và khám bệnh, cấp phát thuốc miễn phí tại xã Na Ư",
+      "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
+      "image": "",
+      "status": "approved",
+      "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
       "likes": 82,
       "createdAt": "29/10/2026 08:15",
-      "stationId": "don_taytrang",
-      "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
-      "status": "approved",
-      "timestamp": 1761703000000,
-      "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
-      "stationName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
-      "comments": []
-    },
-    {
-      "id": "l680ThOyXIY6fNyEQe7U",
-      "authorRole": "don_bp",
-      "areaLabel": "Xã Na Ư, Huyện Điện Biên",
-      "commentsJson": "[]",
-      "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
-      "image": "",
-      "title": "THÔNG BÁO: Tuyên truyền Luật Biên phòng Việt Nam và khám bệnh, cấp phát thuốc miễn phí tại xã Na Ư",
-      "likes": 82,
-      "createdAt": "29/10/2026 08:15",
-      "stationId": "don_taytrang",
-      "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
-      "status": "approved",
-      "timestamp": 1761703000000,
-      "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
-      "stationName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
-      "comments": []
-    },
-    {
-      "id": "qL6UDU3ca7knIHh2bMuM",
       "timestamp": 1761703000000,
       "commentsJson": "[]",
-      "stationId": "don_taytrang",
-      "status": "approved",
-      "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
-      "createdAt": "29/10/2026 08:15",
-      "authorRole": "don_bp",
-      "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
-      "likes": 82,
-      "image": "",
-      "title": "THÔNG BÁO: Tuyên truyền Luật Biên phòng Việt Nam và khám bệnh, cấp phát thuốc miễn phí tại xã Na Ư",
-      "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
-      "areaLabel": "Xã Na Ư, Huyện Điện Biên",
-      "stationName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
       "comments": []
     },
     {
-      "id": "1pcDzbqkCFWFQJgA3D5K",
-      "authorRole": "dan",
+      "id": "kOJGSQxnM7Wh1RtlHc47",
       "approvedBy": "Đồn Biên phòng A Pa Chải",
-      "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
-      "status": "approved",
-      "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
-      "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
-      "timestamp": 1761700000000,
-      "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
-      "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
       "likes": 56,
-      "createdAt": "29/10/2026 07:30",
       "stationId": "don_apachai",
-      "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
-      "stationName": "Đồn Biên phòng A Pa Chải",
-      "comments": [
-        {
-          "id": "cm1",
-          "author": "Đồn Biên phòng A Pa Chải",
-          "role": "don_bp",
-          "text": "Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!",
-          "time": "08:05"
-        }
-      ]
-    },
-    {
-      "id": "8Oz3uoauOggMatLwLiWw",
-      "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
-      "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
-      "likes": 56,
+      "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
       "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
       "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
-      "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
-      "approvedBy": "Đồn Biên phòng A Pa Chải",
       "status": "approved",
-      "authorRole": "dan",
-      "timestamp": 1761700000000,
       "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
-      "stationName": "Đồn Biên phòng A Pa Chải",
-      "stationId": "don_apachai",
-      "createdAt": "29/10/2026 07:30",
-      "comments": [
-        {
-          "id": "cm1",
-          "author": "Đồn Biên phòng A Pa Chải",
-          "role": "don_bp",
-          "text": "Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!",
-          "time": "08:05"
-        }
-      ]
-    },
-    {
-      "id": "JathyFPda7zOw3uJHwA6",
-      "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
-      "stationName": "Đồn Biên phòng A Pa Chải",
       "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
-      "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
-      "likes": 56,
-      "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
       "timestamp": 1761700000000,
-      "createdAt": "29/10/2026 07:30",
-      "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
-      "approvedBy": "Đồn Biên phòng A Pa Chải",
-      "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
-      "stationId": "don_apachai",
       "authorRole": "dan",
-      "status": "approved",
-      "comments": [
-        {
-          "id": "cm1",
-          "author": "Đồn Biên phòng A Pa Chải",
-          "role": "don_bp",
-          "text": "Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!",
-          "time": "08:05"
-        }
-      ]
-    },
-    {
-      "id": "c2mTShVl9TI5ogmEFBLO",
-      "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
+      "createdAt": "29/10/2026 07:30",
       "stationName": "Đồn Biên phòng A Pa Chải",
-      "approvedBy": "Đồn Biên phòng A Pa Chải",
-      "status": "approved",
-      "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
-      "authorRole": "dan",
-      "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
-      "timestamp": 1761700000000,
-      "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
-      "createdAt": "29/10/2026 07:30",
-      "likes": 56,
-      "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
       "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
-      "stationId": "don_apachai",
       "comments": [
         {
           "id": "cm1",
@@ -330,22 +147,22 @@
   ],
   "reports": [
     {
-      "id": "1k3JzVUa6JoV3cbM2fo5",
-      "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
+      "id": "ADi62cssNx7lrCmiiiKH",
       "code": "TB-DB-102",
-      "stationName": "Đồn Biên phòng Pa Thơm",
       "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
-      "stationId": "don_pathom",
-      "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
-      "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
-      "createdAt": "29/10/2026 07:45",
       "senderPhone": "0984.556.789",
-      "timestamp": 1761701000000,
-      "priority": "high",
-      "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
+      "stationId": "don_pathom",
+      "stationName": "Đồn Biên phòng Pa Thơm",
+      "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
       "category": "An ninh cột mốc & Sạt lở đường tuần tra",
+      "priority": "high",
+      "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
+      "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
       "status": "submitted",
       "routedToJson": "[\"Đồn Biên phòng Pa Thơm\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+      "createdAt": "29/10/2026 07:45",
+      "timestamp": 1761701000000,
+      "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
       "routedTo": [
         "Đồn Biên phòng Pa Thơm",
         "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
@@ -360,220 +177,22 @@
       ]
     },
     {
-      "id": "9pn24YeT8JCDcXne4ki8",
-      "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
-      "senderPhone": "0984.556.789",
-      "category": "An ninh cột mốc & Sạt lở đường tuần tra",
-      "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
-      "stationId": "don_pathom",
-      "createdAt": "29/10/2026 07:45",
-      "routedToJson": "[\"Đồn Biên phòng Pa Thơm\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
-      "priority": "high",
-      "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
-      "stationName": "Đồn Biên phòng Pa Thơm",
-      "timestamp": 1761701000000,
-      "status": "submitted",
-      "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
-      "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
-      "code": "TB-DB-102",
-      "routedTo": [
-        "Đồn Biên phòng Pa Thơm",
-        "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
-      ],
-      "events": [
-        {
-          "time": "07:45",
-          "actor": "Hệ thống Định tuyến Tự động",
-          "action": "Chuyển tin báo kép tự động",
-          "note": "Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
-        }
-      ]
-    },
-    {
-      "id": "tEF6sQQQPT6MdOfuedNL",
-      "timestamp": 1761701000000,
-      "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
-      "code": "TB-DB-102",
-      "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
-      "senderPhone": "0984.556.789",
-      "createdAt": "29/10/2026 07:45",
-      "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
-      "stationId": "don_pathom",
-      "category": "An ninh cột mốc & Sạt lở đường tuần tra",
-      "priority": "high",
-      "stationName": "Đồn Biên phòng Pa Thơm",
-      "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
-      "routedToJson": "[\"Đồn Biên phòng Pa Thơm\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
-      "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
-      "status": "submitted",
-      "routedTo": [
-        "Đồn Biên phòng Pa Thơm",
-        "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
-      ],
-      "events": [
-        {
-          "time": "07:45",
-          "actor": "Hệ thống Định tuyến Tự động",
-          "action": "Chuyển tin báo kép tự động",
-          "note": "Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
-        }
-      ]
-    },
-    {
-      "id": "y8lnrYdmOVcwkr1YA8DH",
-      "senderPhone": "0984.556.789",
-      "timestamp": 1761701000000,
-      "createdAt": "29/10/2026 07:45",
-      "routedToJson": "[\"Đồn Biên phòng Pa Thơm\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
-      "stationId": "don_pathom",
-      "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
-      "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
-      "code": "TB-DB-102",
-      "priority": "high",
-      "category": "An ninh cột mốc & Sạt lở đường tuần tra",
-      "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
-      "stationName": "Đồn Biên phòng Pa Thơm",
-      "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
-      "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
-      "status": "submitted",
-      "routedTo": [
-        "Đồn Biên phòng Pa Thơm",
-        "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
-      ],
-      "events": [
-        {
-          "time": "07:45",
-          "actor": "Hệ thống Định tuyến Tự động",
-          "action": "Chuyển tin báo kép tự động",
-          "note": "Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
-        }
-      ]
-    },
-    {
-      "id": "Cw3mEZ06rWHOudg5AdLL",
+      "id": "SWsBh0Mtx0ABrdclsFH5",
       "code": "TB-DB-101",
-      "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
-      "status": "in_progress",
-      "category": "Xuất nhập cảnh trái phép / Vượt biên",
-      "senderPhone": "0912.345.678",
-      "priority": "urgent",
-      "locationDetail": "Đường mòn khu vực gần Mốc quốc giới số 3 - Xã Sín Thầu, H. Mường Nhé",
-      "stationId": "don_apachai",
       "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
-      "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
-      "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
-      "createdAt": "29/10/2026 06:00",
-      "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
-      "timestamp": 1761695000000,
-      "stationName": "Đồn Biên phòng A Pa Chải",
-      "routedTo": [
-        "Đồn Biên phòng A Pa Chải",
-        "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
-      ],
-      "events": [
-        {
-          "time": "06:00",
-          "actor": "Hệ thống Định tuyến Tự động",
-          "action": "Chuyển tin báo kép tự động",
-          "note": "Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
-        },
-        {
-          "time": "06:05",
-          "actor": "Đồn Biên phòng A Pa Chải",
-          "action": "Tiếp nhận & Cơ động lực lượng",
-          "note": "Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3."
-        }
-      ]
-    },
-    {
-      "id": "KrITvOu3Qj3brVAVT8pz",
-      "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
-      "stationName": "Đồn Biên phòng A Pa Chải",
-      "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
-      "status": "in_progress",
-      "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
-      "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
       "senderPhone": "0912.345.678",
-      "timestamp": 1761695000000,
-      "code": "TB-DB-101",
-      "locationDetail": "Đường mòn khu vực gần Mốc quốc giới số 3 - Xã Sín Thầu, H. Mường Nhé",
-      "createdAt": "29/10/2026 06:00",
-      "category": "Xuất nhập cảnh trái phép / Vượt biên",
-      "priority": "urgent",
-      "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
-      "stationId": "don_apachai",
-      "routedTo": [
-        "Đồn Biên phòng A Pa Chải",
-        "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
-      ],
-      "events": [
-        {
-          "time": "06:00",
-          "actor": "Hệ thống Định tuyến Tự động",
-          "action": "Chuyển tin báo kép tự động",
-          "note": "Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
-        },
-        {
-          "time": "06:05",
-          "actor": "Đồn Biên phòng A Pa Chải",
-          "action": "Tiếp nhận & Cơ động lực lượng",
-          "note": "Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3."
-        }
-      ]
-    },
-    {
-      "id": "cNhDNTKK5DhfM8YcQbBc",
-      "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
-      "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
-      "senderPhone": "0912.345.678",
-      "category": "Xuất nhập cảnh trái phép / Vượt biên",
-      "status": "in_progress",
-      "priority": "urgent",
-      "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
-      "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
-      "createdAt": "29/10/2026 06:00",
       "stationId": "don_apachai",
       "stationName": "Đồn Biên phòng A Pa Chải",
-      "code": "TB-DB-101",
-      "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
-      "timestamp": 1761695000000,
       "locationDetail": "Đường mòn khu vực gần Mốc quốc giới số 3 - Xã Sín Thầu, H. Mường Nhé",
-      "routedTo": [
-        "Đồn Biên phòng A Pa Chải",
-        "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
-      ],
-      "events": [
-        {
-          "time": "06:00",
-          "actor": "Hệ thống Định tuyến Tự động",
-          "action": "Chuyển tin báo kép tự động",
-          "note": "Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
-        },
-        {
-          "time": "06:05",
-          "actor": "Đồn Biên phòng A Pa Chải",
-          "action": "Tiếp nhận & Cơ động lực lượng",
-          "note": "Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3."
-        }
-      ]
-    },
-    {
-      "id": "tGsOEkrw1Rv5AW7RhiIg",
-      "senderPhone": "0912.345.678",
-      "timestamp": 1761695000000,
-      "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
-      "stationId": "don_apachai",
-      "code": "TB-DB-101",
-      "status": "in_progress",
-      "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
-      "createdAt": "29/10/2026 06:00",
-      "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
-      "stationName": "Đồn Biên phòng A Pa Chải",
-      "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
-      "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
       "category": "Xuất nhập cảnh trái phép / Vượt biên",
-      "locationDetail": "Đường mòn khu vực gần Mốc quốc giới số 3 - Xã Sín Thầu, H. Mường Nhé",
       "priority": "urgent",
+      "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
+      "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
+      "status": "in_progress",
+      "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+      "createdAt": "29/10/2026 06:00",
+      "timestamp": 1761695000000,
+      "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
       "routedTo": [
         "Đồn Biên phòng A Pa Chải",
         "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
