@@ -9,82 +9,108 @@
   <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
 <body class="bg-[#f2f7f4] text-slate-800 min-h-screen flex flex-col">
+  <!-- TOP SYSTEM BAR -->
+  <div class="bg-slate-950 text-white px-4 py-2 border-b border-slate-800 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <a href="https://console.firebase.google.com/u/0/project/bdbp-43b31/overview" target="_blank" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 hover:text-yellow-300 bg-emerald-950/90 px-2.5 py-1 rounded-md border border-emerald-700/60">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        Firebase: <strong class="underline">bdbp-43b31</strong> (Cloud Firestore Live)
+      </a>
+      <div class="flex items-center gap-2">
+        <a href="./index.html" class="px-3 py-1.5 rounded-lg text-xs font-black bg-[#006837] text-yellow-300 shadow">📱 1. App Bộ Đội Biên Phòng (index.html)</a>
+        <a href="./cms.html" class="px-3 py-1.5 rounded-lg text-xs font-black bg-slate-800 hover:bg-amber-400 hover:text-slate-950 text-slate-200 transition">🖥️ 2. Mở Trang Web CMS Quản Trị (cms.html) ➔</a>
+      </div>
+    </div>
+  </div>
+
   <!-- HEADER BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN -->
   <header class="bg-gradient-to-r from-[#00522b] via-[#006837] to-[#004222] text-white border-b-4 border-yellow-400 shadow-xl sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3.5">
-        <img src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" alt="Huy hiệu BĐBP" class="w-14 h-14 rounded-full bg-white p-0.5 object-contain shadow-lg" />
+        <img id="headerLogoImg" src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" alt="Huy hiệu BĐBP" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white p-0.5 object-contain shadow-lg" />
         <div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
             <span class="bg-red-600 text-yellow-300 text-[10px] font-black px-2 py-0.5 rounded border border-yellow-300">★ 3 - 3 - 1959 ★</span>
-            <span id="dbStatusBadge" class="bg-emerald-950 text-emerald-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-600">⚡ Firebase: bdbp-43b31</span>
+            <span class="bg-emerald-950 text-emerald-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-600">⚡ Đồng bộ Realtime với Web CMS (cms.html)</span>
           </div>
-          <h1 class="text-xl sm:text-2xl font-black text-yellow-300 uppercase mt-0.5">BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</h1>
+          <h1 id="headerAppName" class="text-xl sm:text-2xl font-black text-yellow-300 uppercase mt-0.5">BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</h1>
         </div>
       </div>
       <div class="flex flex-wrap items-center gap-2">
-        <select id="roleSelector" class="bg-[#00381d] text-yellow-300 border border-yellow-400/60 rounded-xl px-3 py-2 text-xs font-black">
-          <option value="dan">👤 Cấp 1: Người Dân Địa Bàn</option>
-          <option value="don_bp">🛡️ Cấp 2: Đồn Biên Phòng</option>
-          <option value="ban_chi_huy">🎖️ Cấp 3: Ban Chỉ Huy Tỉnh</option>
-        </select>
-        <select id="stationSelector" class="bg-[#00381d] text-white border border-emerald-600 rounded-xl px-3 py-2 text-xs font-bold"></select>
-        <a href="./cms.html" class="bg-yellow-400 hover:bg-yellow-300 text-[#00381d] font-black text-xs px-3.5 py-2 rounded-xl shadow">
-          🖥️ Trang Web CMS Quản Trị ➔
-        </a>
+        <div class="bg-[#00381d]/90 p-1.5 rounded-2xl border border-yellow-400/40 flex flex-wrap items-center gap-1">
+          <span class="text-[10px] font-extrabold text-yellow-300 uppercase px-2 hidden xl:inline">3 Cấp trong App:</span>
+          <button onclick="setRole('dan')" id="roleBtn-dan" class="px-3 py-1.5 rounded-xl text-xs font-black bg-yellow-400 text-[#00381d]">1. Dân</button>
+          <button onclick="setRole('don_bp')" id="roleBtn-don_bp" class="px-3 py-1.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#00522b]">2. Đồn Biên Phòng</button>
+          <button onclick="setRole('ban_chi_huy')" id="roleBtn-ban_chi_huy" class="px-3 py-1.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#00522b]">3. Ban Chỉ Huy</button>
+        </div>
+        <select id="stationSelector" onchange="renderAll()" class="bg-[#00381d] text-yellow-300 border border-yellow-400/50 rounded-xl px-3 py-2 text-xs font-bold"></select>
       </div>
     </div>
-    <nav class="bg-[#00381d] border-t border-emerald-800 px-4">
-      <div class="max-w-6xl mx-auto flex space-x-2 py-2 overflow-x-auto">
-        <button onclick="switchTab('feed')" id="tabBtn-feed" class="px-4 py-2 rounded-xl text-xs font-black bg-yellow-400 text-[#00381d]">📰 Bảng Tin Cộng Đồng</button>
-        <button onclick="switchTab('report')" id="tabBtn-report" class="px-4 py-2 rounded-xl text-xs font-black bg-red-600 text-white">🚨 Gửi Tin Báo Vụ Việc</button>
-        <button onclick="switchTab('inbox')" id="tabBtn-inbox" class="px-4 py-2 rounded-xl text-xs font-black text-emerald-100 hover:bg-[#00522b]">📡 Tiếp Nhận & Xử Lý Tin Báo</button>
-        <button onclick="switchTab('moderation')" id="tabBtn-moderation" class="px-4 py-2 rounded-xl text-xs font-black text-emerald-100 hover:bg-[#00522b]">✅ Duyệt Bài Đăng Của Dân</button>
+    <nav class="bg-[#003d20] border-t border-[#005c30] px-4">
+      <div class="max-w-7xl mx-auto flex space-x-1 py-1.5 overflow-x-auto">
+        <button onclick="switchTab('feed')" id="tabBtn-feed" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-black bg-yellow-400 text-[#00381d]">📰 Bảng Tin Cộng Đồng</button>
+        <button onclick="switchTab('report')" id="tabBtn-report" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-black bg-red-600 text-white">🚨 Gửi Tin Báo Vụ Việc</button>
+        <button onclick="switchTab('inbox')" id="tabBtn-inbox" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-emerald-100 hover:bg-[#00522b]">📡 Tiếp Nhận & Xử Lý Tin Báo</button>
+        <button onclick="switchTab('moderation')" id="tabBtn-moderation" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-emerald-100 hover:bg-[#00522b]">✅ Duyệt Bài Đăng Của Dân</button>
+        <button onclick="switchTab('stations')" id="tabBtn-stations" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-emerald-100 hover:bg-[#00522b]">🏢 Danh Bạ Đồn Biên Phòng</button>
       </div>
     </nav>
   </header>
 
-  <main class="max-w-6xl w-full mx-auto p-4 sm:p-6 flex-1 space-y-6">
+  <div class="bg-[#e3f1e8] border-b border-[#b8dcc6] px-4 py-2 text-xs text-[#004222]">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div id="roleContextText" class="font-bold"></div>
+      <div class="text-[11px] font-semibold text-[#00522b]">⚡ Đồng bộ thời gian thực với Trang Web CMS Quản trị (cms.html) & Firebase bdbp-43b31</div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl w-full mx-auto p-4 sm:p-6 flex-1 space-y-6">
     <!-- TAB 1: BẢNG TIN CỘNG ĐỒNG -->
     <section id="sec-feed" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="lg:col-span-2 space-y-4">
-        <form id="postForm" class="bg-white p-5 rounded-2xl shadow border-2 border-[#006837]/20 space-y-3">
-          <h3 class="font-black text-sm text-[#004222] uppercase">✍️ Đăng Bài Lên Bảng Tin Biên Giới</h3>
-          <p id="postRuleHint" class="text-xs text-amber-800 bg-amber-50 p-2.5 rounded-xl border border-amber-300 font-semibold">
-            🔒 Khi Người dân đăng bài, bài viết cần được Đồn Biên phòng quản lý khu vực đó hoặc Ban Chỉ huy duyệt trước khi hiển thị công khai.
-          </p>
+        <form id="postForm" class="bg-white p-5 rounded-2xl shadow-md border-2 border-[#006837]/20 space-y-3">
+          <div class="flex items-center gap-2.5 border-b border-slate-100 pb-2">
+            <img id="postFormLogo" src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" class="w-9 h-9 rounded-full bg-white p-0.5 object-contain" />
+            <div>
+              <h3 class="font-black text-sm text-[#004222] uppercase">Đăng Bài Lên Bảng Tin Địa Bàn (Lưu trực tiếp Firebase)</h3>
+              <p id="postRuleHint" class="text-[11px] text-slate-500">🔒 Bài đăng của Người dân bắt buộc phải được Đồn Biên phòng khu vực hoặc Ban Chỉ huy duyệt.</p>
+            </div>
+          </div>
           <input id="postTitle" required placeholder="Tiêu đề bài đăng..." class="w-full p-3 rounded-xl border border-slate-300 text-xs font-bold" />
-          <textarea id="postContent" rows="3" required placeholder="Nội dung bài viết..." class="w-full p-3 rounded-xl border border-slate-300 text-xs"></textarea>
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-[#006837]">Lưu trực tiếp vào Firebase (bdbp-43b31)</span>
+          <textarea id="postContent" rows="3" required placeholder="Nội dung bài viết cộng đồng..." class="w-full p-3 rounded-xl border border-slate-300 text-xs"></textarea>
+          <div class="flex flex-wrap justify-between items-center gap-2">
+            <span class="text-xs font-bold text-[#006837]">Khu vực Đồn quản lý theo lựa chọn phía trên</span>
             <button type="submit" class="bg-[#006837] hover:bg-[#004d28] text-yellow-300 font-black text-xs px-5 py-2.5 rounded-xl shadow uppercase">Gửi Bài Đăng</button>
           </div>
         </form>
         <div id="feedContainer" class="space-y-4"></div>
       </div>
       <div class="space-y-4">
-        <div class="bg-white p-5 rounded-2xl shadow border border-slate-200">
-          <h3 class="font-black text-sm text-[#004222] uppercase mb-3">🛡️ Danh Bạ Đồn Biên Phòng</h3>
+        <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-200">
+          <h3 class="font-black text-sm text-[#004222] uppercase mb-3">🛡️ Lọc & Danh Bạ Đồn Biên Phòng</h3>
           <div id="stationsSidebar" class="space-y-2 text-xs"></div>
         </div>
       </div>
     </section>
 
     <!-- TAB 2: GỬI TIN BÁO TỰ ĐỘNG TỚI ĐỒN BP & BAN CHỈ HUY -->
-    <section id="sec-report" class="hidden max-w-2xl mx-auto bg-white p-6 rounded-3xl shadow-xl border-2 border-[#006837] space-y-4">
-      <div class="border-b pb-3">
-        <span class="bg-red-600 text-yellow-300 text-[10px] font-black px-2.5 py-0.5 rounded uppercase">Định tuyến tự động 2 cấp</span>
-        <h2 class="text-lg font-black text-[#004222] uppercase mt-1">Gửi Tin Báo Tố Giác / Sự Việc Biên Giới</h2>
-        <p class="text-xs text-slate-600">Khi gửi, hệ thống tự động chuyển đồng thời tới <b>Đồn Biên phòng nơi xảy ra vụ việc</b> VÀ <b>Ban Chỉ huy BĐBP Tỉnh Điện Biên</b>.</p>
+    <section id="sec-report" class="hidden max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border-2 border-[#006837] overflow-hidden">
+      <div class="bg-gradient-to-r from-[#00522b] to-[#006837] text-white p-6 border-b-4 border-yellow-400 flex items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" class="w-16 h-16 rounded-full bg-white p-0.5 object-contain shrink-0" />
+        <div>
+          <span class="bg-red-600 text-yellow-300 text-[10px] font-black px-2.5 py-0.5 rounded uppercase">Định tuyến tự động 2 cấp</span>
+          <h2 class="text-xl font-black text-yellow-300 uppercase mt-1">Gửi Tin Báo An Ninh Biên Giới</h2>
+          <p class="text-xs text-emerald-100">Khi gửi, hệ thống tự động chuyển đồng thời tới <b>Đồn Biên phòng nơi xảy ra vụ việc</b> VÀ <b>Ban Chỉ huy BĐBP Tỉnh Điện Biên</b>.</p>
+        </div>
       </div>
-      <form id="reportForm" class="space-y-3 text-xs">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <form id="reportForm" class="p-6 space-y-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="font-bold block mb-1">Khu vực Đồn Biên phòng phụ trách *</label>
-            <select id="repStation" class="w-full p-3 rounded-xl border border-slate-300 font-bold bg-[#f4f9f6]"></select>
+            <label class="font-black text-[#004222] uppercase block mb-1">Khu vực xảy ra vụ việc (Đồn BP phụ trách) *</label>
+            <select id="repStation" class="w-full p-3 rounded-xl border-2 border-[#006837]/40 font-bold bg-[#f4f9f6]"></select>
           </div>
           <div>
-            <label class="font-bold block mb-1">Mức độ khẩn cấp *</label>
+            <label class="font-black text-[#004222] uppercase block mb-1">Mức độ khẩn cấp *</label>
             <select id="repPriority" class="w-full p-3 rounded-xl border border-slate-300 font-bold text-red-700">
               <option value="urgent">🔥 Khẩn cấp</option>
               <option value="high">⚠️ Ưu tiên cao</option>
@@ -92,35 +118,75 @@
             </select>
           </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <input id="repCategory" required value="Xuất nhập cảnh trái phép / Vượt biên" class="p-3 rounded-xl border border-slate-300 font-bold" placeholder="Loại vụ việc..." />
-          <input id="repPhone" required value="0912.345.678" class="p-3 rounded-xl border border-slate-300 font-bold" placeholder="Số điện thoại người báo..." />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="font-black text-[#004222] uppercase block mb-1">Loại vụ việc báo cáo *</label>
+            <input id="repCategory" required value="Xuất nhập cảnh trái phép / Vượt biên" class="w-full p-3 rounded-xl border border-slate-300 font-bold" />
+          </div>
+          <div>
+            <label class="font-black text-[#004222] uppercase block mb-1">Số điện thoại liên hệ *</label>
+            <input id="repPhone" required value="0912.345.678" class="w-full p-3 rounded-xl border border-slate-300 font-bold" />
+          </div>
         </div>
-        <input id="repLocation" required placeholder="Vị trí cụ thể (Bản, Cột mốc, Đường mòn)..." class="w-full p-3 rounded-xl border border-slate-300" />
-        <input id="repTitle" required placeholder="Tiêu đề tóm tắt sự việc..." class="w-full p-3 rounded-xl border border-slate-300 font-bold" />
-        <textarea id="repDesc" rows="4" required placeholder="Mô tả chi tiết sự việc..." class="w-full p-3 rounded-xl border border-slate-300"></textarea>
-        <button type="submit" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-yellow-300 font-black uppercase rounded-xl shadow-lg">🚀 Gửi Tin Báo Tới Đồn BP & Ban Chỉ Huy</button>
+        <div>
+          <label class="font-black text-[#004222] uppercase block mb-1">Vị trí cụ thể (Bản, Cột mốc, Đường mòn) *</label>
+          <input id="repLocation" required placeholder="Ví dụ: Gần Cột mốc số 3, bản A Pa Chải, xã Sín Thầu..." class="w-full p-3 rounded-xl border border-slate-300" />
+        </div>
+        <div>
+          <label class="font-black text-[#004222] uppercase block mb-1">Tiêu đề tin báo *</label>
+          <input id="repTitle" required placeholder="Tóm tắt sự việc..." class="w-full p-3 rounded-xl border border-slate-300 font-bold" />
+        </div>
+        <div>
+          <label class="font-black text-[#004222] uppercase block mb-1">Nội dung chi tiết vụ việc *</label>
+          <textarea id="repDesc" rows="4" required placeholder="Mô tả chi tiết sự việc..." class="w-full p-3 rounded-xl border border-slate-300"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-yellow-300 font-black text-sm uppercase rounded-xl shadow-lg">🚀 GỬI TIN BÁO TỚI ĐỒN BIÊN PHÒNG & BAN CHỈ HUY</button>
       </form>
     </section>
 
     <!-- TAB 3: HỘP THƯ TIN BÁO -->
     <section id="sec-inbox" class="hidden space-y-4">
-      <div class="bg-[#004d28] text-white p-4 rounded-2xl border-l-8 border-yellow-400">
-        <h2 class="font-black text-base text-yellow-300 uppercase">📡 Danh Sách Tin Báo Tự Động (Đồn BP & Ban Chỉ Huy)</h2>
-        <p class="text-xs text-emerald-100">Cập nhật thời gian thực từ cơ sở dữ liệu Firebase bdbp-43b31</p>
+      <div class="bg-gradient-to-r from-[#004d28] to-[#006837] text-white p-5 rounded-2xl border-l-8 border-yellow-400">
+        <h2 class="font-black text-lg text-yellow-300 uppercase">📡 Tiếp Nhận & Xử Lý Tin Báo Tự Động (Đồn BP & Ban Chỉ Huy)</h2>
+        <p class="text-xs text-emerald-100">Đồng bộ thời gian thực trên Cloud Firestore (bdbp-43b31) và Web CMS Quản trị</p>
       </div>
       <div id="reportsContainer" class="space-y-4"></div>
     </section>
 
     <!-- TAB 4: DUYỆT BÀI ĐĂNG CỦA DÂN -->
     <section id="sec-moderation" class="hidden space-y-4">
-      <div class="bg-[#004d28] text-white p-4 rounded-2xl border-l-8 border-yellow-400">
-        <h2 class="font-black text-base text-yellow-300 uppercase">✅ Kiểm Duyệt Bài Đăng Của Người Dân</h2>
+      <div class="bg-gradient-to-r from-[#00522b] to-[#006837] text-white p-5 rounded-2xl border-l-8 border-yellow-400">
+        <h2 class="font-black text-lg text-yellow-300 uppercase">✅ Kiểm Duyệt Bài Đăng Của Người Dân</h2>
         <p class="text-xs text-emerald-100">Đồn Biên phòng quản lý địa bàn hoặc Ban Chỉ huy Tỉnh phê duyệt để hiển thị lên Bảng tin công khai.</p>
       </div>
       <div id="moderationContainer" class="space-y-4"></div>
     </section>
+
+    <!-- TAB 5: DANH BẠ ĐỒN BIÊN PHÒNG -->
+    <section id="sec-stations" class="hidden space-y-4">
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-lg font-black text-[#004222] uppercase">Hệ Thống Đồn Biên Phòng Tỉnh Điện Biên</h2>
+        <p class="text-xs text-slate-500">Quản lý tuyến biên giới Việt - Lào & Việt - Trung</p>
+      </div>
+      <div id="stationsGridContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
   </main>
+
+  <footer class="bg-[#00381d] text-emerald-100 border-t-4 border-yellow-400 py-6 px-4 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img id="footerLogoImg" src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" class="w-11 h-11 rounded-full bg-white p-0.5 object-contain" />
+        <div>
+          <p id="footerAppName" class="font-black text-yellow-300 uppercase text-sm">BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</p>
+          <p id="footerSlogan" class="text-emerald-200 mt-0.5">"Đồn là nhà, biên giới là quê hương, đồng bào các dân tộc là anh em ruột thịt"</p>
+        </div>
+      </div>
+      <div class="text-center sm:text-right text-emerald-200">
+        <p>Trực ban Tác chiến Ban Chỉ huy Tỉnh: <strong id="footerHotline" class="text-yellow-300">02153.825.112</strong></p>
+        <p>Ứng dụng 3 cấp kết nối trực tiếp Cloud Firestore (bdbp-43b31) & Web CMS</p>
+      </div>
+    </div>
+  </footer>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -135,67 +201,77 @@
   "appId": "1:000000000000:web:bdbp43b31"
 };
     const APP_ID = "bdbp-43b31";
+    const syncChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('bdbp_db_realtime_sync') : null;
 
-    let STATIONS = [
+    let CONFIG = {
+  "appName": "BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN",
+  "logoUrl": "https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png",
+  "hotlineCommand": "02153.825.112",
+  "slogan": "Đồn là nhà, biên giới là quê hương, đồng bào các dân tộc là anh em ruột thịt",
+  "firebaseProjectId": "bdbp-43b31",
+  "firebaseConsoleUrl": "https://console.firebase.google.com/u/0/project/bdbp-43b31/overview",
+  "firebaseApiKey": ""
+};
+    let STATIONS = JSON.parse(localStorage.getItem('bdbp_stations') || 'null') || [
   {
     "id": "don_apachai",
+    "code": "DBP-701",
+    "name": "Đồn Biên phòng A Pa Chải",
+    "hotline": "02153.875.111",
     "area": "Xã Sín Thầu, Huyện Mường Nhé, Tỉnh Điện Biên",
     "commander": "Thượng tá Nguyễn Đức Cảnh",
     "markers": "Mốc quốc giới số 0 (Việt - Trung - Lào) đến Mốc 9 (Tuyến Việt - Trung & Việt - Lào)",
-    "status": "active",
-    "name": "Đồn Biên phòng A Pa Chải",
-    "code": "DBP-701",
-    "hotline": "02153.875.111"
-  },
-  {
-    "id": "don_lengsusin",
-    "markers": "Mốc quốc giới số 10 đến Mốc 28",
-    "code": "DBP-703",
-    "name": "Đồn Biên phòng Leng Su Sìn",
-    "status": "active",
-    "hotline": "02153.875.222",
-    "area": "Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé",
-    "commander": "Trung tá Lò Văn Minh"
-  },
-  {
-    "id": "don_nacosa",
-    "name": "Đồn Biên phòng Na Cô Sa",
-    "hotline": "02153.875.289",
-    "code": "DBP-707",
-    "status": "active",
-    "area": "Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ",
-    "commander": "Trung tá Giàng A Chư",
-    "markers": "Mốc quốc giới số 55 đến Mốc 65"
-  },
-  {
-    "id": "don_muongmon",
-    "area": "Xã Mường Mơn, Huyện Mường Chà",
-    "markers": "Mốc quốc giới số 81 đến Mốc 89",
-    "name": "Đồn Biên phòng Mường Mơn",
-    "hotline": "02153.875.333",
-    "commander": "Thiếu tá Hoàng Văn Thái",
-    "code": "DBP-711",
     "status": "active"
   },
   {
-    "id": "don_pathom",
-    "area": "Xã Pa Thơm, Huyện Điện Biên",
-    "commander": "Trung tá Lê Đình Quyền",
-    "hotline": "02153.875.444",
+    "id": "don_lengsusin",
+    "commander": "Trung tá Lò Văn Minh",
+    "hotline": "02153.875.222",
+    "name": "Đồn Biên phòng Leng Su Sìn",
+    "markers": "Mốc quốc giới số 10 đến Mốc 28",
     "status": "active",
-    "name": "Đồn Biên phòng Pa Thơm",
+    "code": "DBP-703",
+    "area": "Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé"
+  },
+  {
+    "id": "don_nacosa",
+    "markers": "Mốc quốc giới số 55 đến Mốc 65",
+    "status": "active",
+    "commander": "Trung tá Giàng A Chư",
+    "area": "Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ",
+    "code": "DBP-707",
+    "hotline": "02153.875.289",
+    "name": "Đồn Biên phòng Na Cô Sa"
+  },
+  {
+    "id": "don_muongmon",
+    "markers": "Mốc quốc giới số 81 đến Mốc 89",
+    "name": "Đồn Biên phòng Mường Mơn",
+    "code": "DBP-711",
+    "hotline": "02153.875.333",
+    "area": "Xã Mường Mơn, Huyện Mường Chà",
+    "status": "active",
+    "commander": "Thiếu tá Hoàng Văn Thái"
+  },
+  {
+    "id": "don_pathom",
+    "status": "active",
+    "area": "Xã Pa Thơm, Huyện Điện Biên",
     "markers": "Mốc quốc giới số 110 đến Mốc 112",
-    "code": "DBP-715"
+    "code": "DBP-715",
+    "name": "Đồn Biên phòng Pa Thơm",
+    "hotline": "02153.875.444",
+    "commander": "Trung tá Lê Đình Quyền"
   },
   {
     "id": "don_taytrang",
-    "markers": "Cửa khẩu Quốc tế Tây Trang - Pang Hok (Mốc quốc giới 113 - 115)",
-    "name": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
     "code": "DBP-717",
-    "status": "active",
-    "hotline": "02153.875.555",
+    "name": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "area": "Xã Na Ư, Huyện Điện Biên",
+    "markers": "Cửa khẩu Quốc tế Tây Trang - Pang Hok (Mốc quốc giới 113 - 115)",
     "commander": "Thượng tá Vũ Văn Biển",
-    "area": "Xã Na Ư, Huyện Điện Biên"
+    "hotline": "02153.875.555",
+    "status": "active"
   },
   {
     "id": "don_muongnha",
@@ -208,9 +284,9 @@
     "status": "active"
   }
 ];
-    let POSTS = [
+    let POSTS = JSON.parse(localStorage.getItem('bdbp_posts') || 'null') || [
   {
-    "id": "aGBkATeLUoGaSMKWtMju",
+    "id": "jCNu0fU7XD8aAvNLpHg9",
     "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
     "authorRole": "dan",
     "stationId": "don_lengsusin",
@@ -228,7 +304,7 @@
     "comments": []
   },
   {
-    "id": "ZadMhMLXoJLQNWgCWyIT",
+    "id": "CWcYjM0EApFOR1xvjz3P",
     "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
     "authorRole": "don_bp",
     "stationId": "don_taytrang",
@@ -246,21 +322,21 @@
     "comments": []
   },
   {
-    "id": "kOJGSQxnM7Wh1RtlHc47",
-    "approvedBy": "Đồn Biên phòng A Pa Chải",
-    "likes": 56,
+    "id": "aUCqC1hdUXKnu61R7lwx",
+    "authorRole": "dan",
+    "timestamp": 1761700000000,
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
     "stationId": "don_apachai",
+    "likes": 56,
+    "status": "approved",
     "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
+    "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "createdAt": "29/10/2026 07:30",
+    "approvedBy": "Đồn Biên phòng A Pa Chải",
     "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
     "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
-    "status": "approved",
-    "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
     "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
-    "timestamp": 1761700000000,
-    "authorRole": "dan",
-    "createdAt": "29/10/2026 07:30",
-    "stationName": "Đồn Biên phòng A Pa Chải",
-    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
     "comments": [
       {
         "id": "cm1",
@@ -272,9 +348,9 @@
     ]
   }
 ];
-    let REPORTS = [
+    let REPORTS = JSON.parse(localStorage.getItem('bdbp_reports') || 'null') || [
   {
-    "id": "ADi62cssNx7lrCmiiiKH",
+    "id": "kQhQ5QllmYK63XCHJmL3",
     "code": "TB-DB-102",
     "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
     "senderPhone": "0984.556.789",
@@ -304,7 +380,7 @@
     ]
   },
   {
-    "id": "SWsBh0Mtx0ABrdclsFH5",
+    "id": "9Y1jk7zjmR4MdYqTXChV",
     "code": "TB-DB-101",
     "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
     "senderPhone": "0912.345.678",
@@ -340,16 +416,66 @@
     ]
   }
 ];
+    let LOGS = JSON.parse(localStorage.getItem('bdbp_logs') || 'null') || [];
+    let currentRole = 'dan';
+    let currentTab = 'feed';
     let db = null;
 
-    const roleSel = document.getElementById('roleSelector');
     const stationSel = document.getElementById('stationSelector');
     const repStationSel = document.getElementById('repStation');
 
+    function persistSharedState() {
+      try {
+        localStorage.setItem('bdbp_config', JSON.stringify(CONFIG));
+        localStorage.setItem('bdbp_stations', JSON.stringify(STATIONS));
+        localStorage.setItem('bdbp_posts', JSON.stringify(POSTS));
+        localStorage.setItem('bdbp_reports', JSON.stringify(REPORTS));
+        localStorage.setItem('bdbp_logs', JSON.stringify(LOGS));
+        if (syncChannel) syncChannel.postMessage({ type: 'SYNC' });
+      } catch (e) {}
+    }
+
+    if (syncChannel) {
+      syncChannel.onmessage = () => {
+        CONFIG = JSON.parse(localStorage.getItem('bdbp_config') || 'null') || CONFIG;
+        STATIONS = JSON.parse(localStorage.getItem('bdbp_stations') || 'null') || STATIONS;
+        POSTS = JSON.parse(localStorage.getItem('bdbp_posts') || 'null') || POSTS;
+        REPORTS = JSON.parse(localStorage.getItem('bdbp_reports') || 'null') || REPORTS;
+        LOGS = JSON.parse(localStorage.getItem('bdbp_logs') || 'null') || LOGS;
+        renderStationOptions();
+        renderAll();
+      };
+    }
+
+    window.setRole = (r) => {
+      currentRole = r;
+      ['dan', 'don_bp', 'ban_chi_huy'].forEach(k => {
+        const btn = document.getElementById('roleBtn-' + k);
+        if (btn) {
+          btn.className = k === r
+            ? 'px-3 py-1.5 rounded-xl text-xs font-black bg-yellow-400 text-[#00381d] shadow'
+            : 'px-3 py-1.5 rounded-xl text-xs font-bold text-emerald-100 hover:bg-[#00522b]';
+        }
+      });
+      renderAll();
+    };
+
+    window.switchTab = (tab) => {
+      currentTab = tab;
+      ['feed', 'report', 'inbox', 'moderation', 'stations'].forEach(t => {
+        const sec = document.getElementById('sec-' + t);
+        if (sec) sec.classList.toggle('hidden', t !== tab);
+      });
+      renderAll();
+    };
+
     function renderStationOptions() {
-      const opts = STATIONS.map(s => `<option value="${s.id}">${s.name} (${s.area})</option>`).join('');
+      const currentVal = stationSel.value;
+      const opts = STATIONS.map(s => `<option value="${s.id}">📍 ${s.name}</option>`).join('');
       stationSel.innerHTML = opts;
       repStationSel.innerHTML = opts;
+      if (currentVal && STATIONS.some(s => s.id === currentVal)) stationSel.value = currentVal;
+
       document.getElementById('stationsSidebar').innerHTML = STATIONS.map(s => `
         <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
           <div class="font-black text-[#00522b]">${s.code} - ${s.name}</div>
@@ -357,21 +483,31 @@
           <div class="font-bold text-[#006837] mt-1">📞 ${s.hotline}</div>
         </div>
       `).join('');
+
+      document.getElementById('stationsGridContainer').innerHTML = STATIONS.map(s => `
+        <div class="bg-white rounded-2xl p-5 shadow-md border-2 border-[#006837]/20 flex items-start gap-4">
+          <img src="${CONFIG.logoUrl}" class="w-14 h-14 rounded-full bg-white p-0.5 object-contain shrink-0" />
+          <div class="space-y-1 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="bg-[#006837] text-yellow-300 font-mono text-[10px] font-black px-2 py-0.5 rounded">${s.code}</span>
+              <h3 class="font-black text-base text-[#004222]">${s.name}</h3>
+            </div>
+            <p class="text-slate-700"><b>Địa bàn quản lý:</b> ${s.area}</p>
+            <p class="text-slate-700"><b>Cột mốc phụ trách:</b> ${s.markers}</p>
+            <p class="text-slate-700"><b>Chỉ huy đơn vị:</b> ${s.commander}</p>
+            <p class="font-black text-[#006837] pt-1">📞 Trực ban: ${s.hotline}</p>
+          </div>
+        </div>
+      `).join('');
     }
 
-    window.switchTab = (tab) => {
-      ['feed', 'report', 'inbox', 'moderation'].forEach(t => {
-        document.getElementById('sec-' + t).classList.toggle('hidden', t !== tab);
-      });
-      renderAll();
-    };
-
     window.approvePost = async (postId) => {
-      const role = roleSel.value;
-      if (role === 'dan') { alert('Chỉ Đồn Biên phòng hoặc Ban Chỉ huy mới có quyền duyệt bài!'); return; }
+      if (currentRole === 'dan') { alert('Hãy chọn vai trò "2. Đồn Biên Phòng" hoặc "3. Ban Chỉ Huy" trên thanh tiêu đề để duyệt bài!'); return; }
       const st = STATIONS.find(s => s.id === stationSel.value) || STATIONS[0];
-      const approver = role === 'ban_chi_huy' ? 'Ban Chỉ huy BĐBP Tỉnh' : st.name;
+      const approver = currentRole === 'ban_chi_huy' ? 'Ban Chỉ huy BĐBP Tỉnh' : st.name;
       POSTS = POSTS.map(p => p.id === postId ? { ...p, status: 'approved', approvedBy: approver } : p);
+      LOGS = [{ id: 'log_' + Date.now(), tier: currentRole.toUpperCase(), actor: approver, action: 'Phê duyệt bài đăng của dân', target: postId, detail: 'Hiển thị công khai', time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
       renderAll();
       if (db) {
         await updateDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'posts', postId), { status: 'approved', approvedBy: approver }).catch(()=>{});
@@ -379,81 +515,109 @@
     };
 
     window.updateReportStatus = async (repId, newStatus) => {
-      const role = roleSel.value;
-      if (role === 'dan') return;
+      if (currentRole === 'dan') { alert('Chỉ Đồn Biên phòng hoặc Ban Chỉ huy mới có quyền cập nhật xử lý tin báo!'); return; }
       const st = STATIONS.find(s => s.id === stationSel.value) || STATIONS[0];
-      const actor = role === 'ban_chi_huy' ? 'Ban Chỉ huy BĐBP Tỉnh' : st.name;
+      const actor = currentRole === 'ban_chi_huy' ? 'Ban Chỉ huy BĐBP Tỉnh' : st.name;
       REPORTS = REPORTS.map(r => r.id === repId ? { ...r, status: newStatus } : r);
+      LOGS = [{ id: 'log_' + Date.now(), tier: currentRole.toUpperCase(), actor, action: 'Cập nhật trạng thái tin báo -> ' + newStatus, target: repId, detail: 'Xử lý nghiệp vụ', time: new Date().toLocaleString('vi-VN') }, ...LOGS];
+      persistSharedState();
       renderAll();
       if (db) {
         await updateDoc(doc(db, 'artifacts', APP_ID, 'public', 'data', 'reports', repId), { status: newStatus }).catch(()=>{});
       }
     };
 
-    function renderAll() {
-      const approvedPosts = POSTS.filter(p => p.status === 'approved');
+    window.renderAll = () => {
+      document.getElementById('headerLogoImg').src = CONFIG.logoUrl;
+      document.getElementById('footerLogoImg').src = CONFIG.logoUrl;
+      document.getElementById('postFormLogo').src = CONFIG.logoUrl;
+      document.getElementById('headerAppName').textContent = CONFIG.appName;
+      document.getElementById('footerAppName').textContent = CONFIG.appName;
+      document.getElementById('footerSlogan').textContent = '"' + CONFIG.slogan + '"';
+      document.getElementById('footerHotline').textContent = CONFIG.hotlineCommand;
+
+      const st = STATIONS.find(s => s.id === stationSel.value) || STATIONS[0];
+      const roleLabel = currentRole === 'dan'
+        ? `<span class="bg-[#006837] text-yellow-300 font-black px-2 py-0.5 rounded mr-2">CẤP 1: NGƯỜI DÂN</span> Công dân biên giới • Khu vực: ${st?.name} (${st?.area})`
+        : currentRole === 'don_bp'
+        ? `<span class="bg-[#006837] text-yellow-300 font-black px-2 py-0.5 rounded mr-2">CẤP 2: ĐỒN BIÊN PHÒNG</span> ${st?.name} • Quản lý địa bàn: ${st?.area}`
+        : `<span class="bg-[#006837] text-yellow-300 font-black px-2 py-0.5 rounded mr-2">CẤP 3: BAN CHỈ HUY TỈNH</span> Ban Chỉ huy BĐBP Tỉnh Điện Biên • Giám sát toàn tỉnh`;
+      document.getElementById('roleContextText').innerHTML = roleLabel;
+
+      const approvedPosts = POSTS.filter(p => p.status !== 'rejected');
       document.getElementById('feedContainer').innerHTML = approvedPosts.map(p => `
-        <div class="bg-white p-5 rounded-2xl shadow border border-slate-200 space-y-2">
-          <div class="flex justify-between items-center text-xs">
-            <span class="font-black text-[#00522b]">📍 ${p.stationName} • ${p.authorName}</span>
-            <span class="bg-emerald-100 text-[#00522b] font-bold px-2.5 py-0.5 rounded-full">✓ Duyệt bởi: ${p.approvedBy || 'Đồn BP'}</span>
+        <div class="bg-white rounded-2xl shadow-md border ${p.status === 'pending' ? 'border-amber-400' : 'border-slate-200'} overflow-hidden">
+          ${p.status === 'pending' ? `
+            <div class="bg-amber-400 text-[#00381d] px-4 py-2 text-xs font-black flex justify-between items-center">
+              <span>⏳ CHỜ PHÊ DUYỆT: Cần ${p.stationName} hoặc Ban Chỉ huy Tỉnh duyệt</span>
+              ${currentRole !== 'dan' ? `<button onclick="approvePost('${p.id}')" class="bg-[#004222] text-yellow-300 px-3 py-1 rounded-lg text-[11px]">Duyệt ngay ➔</button>` : ''}
+            </div>
+          ` : ''}
+          <div class="p-5 space-y-2.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-black text-[#00522b]">📍 ${p.stationName} • ${p.authorName} (${p.createdAt || ''})</span>
+              ${p.status === 'approved' ? `<span class="bg-emerald-100 text-[#00522b] font-bold px-2.5 py-0.5 rounded-full">✓ Duyệt bởi: ${p.approvedBy || 'Đồn BP'}</span>` : ''}
+            </div>
+            <h4 class="font-black text-base text-[#00381d]">${p.title}</h4>
+            <p class="text-sm text-slate-700 leading-relaxed">${p.content}</p>
           </div>
-          <h4 class="font-black text-base text-[#00381d]">${p.title}</h4>
-          <p class="text-sm text-slate-700">${p.content}</p>
         </div>
       `).join('');
 
       const pendingPosts = POSTS.filter(p => p.status === 'pending');
       document.getElementById('moderationContainer').innerHTML = pendingPosts.length === 0
-        ? '<div class="bg-white p-8 rounded-2xl text-center text-xs font-bold text-slate-500">✅ Không có bài đăng nào đang chờ duyệt.</div>'
+        ? '<div class="bg-white p-10 rounded-2xl text-center text-sm font-bold text-slate-500">✅ Tất cả bài đăng của người dân đều đã được kiểm duyệt!</div>'
         : pendingPosts.map(p => `
-          <div class="bg-white p-5 rounded-2xl shadow border-2 border-amber-400 flex justify-between items-center gap-4">
+          <div class="bg-white p-5 rounded-2xl shadow-md border-2 border-amber-400 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="space-y-1 text-xs">
-              <span class="bg-amber-300 text-[#00381d] font-black px-2 py-0.5 rounded">CHỜ DUYỆT • ${p.stationName}</span>
-              <h4 class="font-black text-sm text-slate-900 mt-1">${p.title}</h4>
-              <p class="text-slate-600">${p.content}</p>
+              <span class="bg-amber-400 text-[#00381d] font-black px-2.5 py-0.5 rounded">CHỜ DUYỆT • ${p.stationName}</span>
+              <h4 class="font-black text-base text-slate-900 mt-1">${p.title}</h4>
+              <p class="text-slate-700">${p.content}</p>
             </div>
-            <button onclick="approvePost('${p.id}')" class="bg-[#006837] text-yellow-300 font-black text-xs px-4 py-2.5 rounded-xl shrink-0">✓ Duyệt Bài</button>
+            <button onclick="approvePost('${p.id}')" class="bg-[#006837] hover:bg-[#004d28] text-yellow-300 font-black text-xs px-5 py-2.5 rounded-xl shrink-0">✓ Duyệt Hiển Thị</button>
           </div>
         `).join('');
 
       document.getElementById('reportsContainer').innerHTML = REPORTS.map(r => `
-        <div class="bg-white p-5 rounded-2xl shadow border-l-8 border-red-600 space-y-2 text-xs">
+        <div class="bg-white p-5 rounded-2xl shadow-md border-l-8 border-red-600 space-y-2.5 text-xs">
           <div class="flex justify-between items-center">
-            <span class="font-mono font-black text-red-600">${r.code || r.id} • 📍 ${r.stationName}</span>
-            <span class="bg-emerald-100 text-[#00522b] font-black px-2.5 py-1 rounded-full uppercase">${r.status}</span>
+            <span class="font-mono font-black text-red-600 text-sm">${r.code || r.id} • 📍 ${r.stationName}</span>
+            <span class="bg-emerald-100 text-[#00522b] font-black px-3 py-1 rounded-full uppercase">${r.status}</span>
           </div>
-          <h4 class="font-black text-sm text-slate-900">${r.title}</h4>
-          <p class="text-slate-700 bg-slate-50 p-3 rounded-xl">${r.description}</p>
-          <div class="text-[11px] font-bold text-[#00522b]">⚡ Đã tự động chuyển tới: [${r.stationName}] + [Ban Chỉ huy BĐBP Tỉnh Điện Biên]</div>
-          <div class="flex gap-2 pt-2">
-            <button onclick="updateReportStatus('${r.id}', 'received')" class="bg-blue-700 text-white font-bold px-3 py-1.5 rounded-lg">1. Tiếp nhận</button>
-            <button onclick="updateReportStatus('${r.id}', 'in_progress')" class="bg-purple-700 text-white font-bold px-3 py-1.5 rounded-lg">2. Đang xử lý</button>
-            <button onclick="updateReportStatus('${r.id}', 'resolved')" class="bg-[#006837] text-yellow-300 font-black px-3 py-1.5 rounded-lg">3. Hoàn tất</button>
-          </div>
+          <h4 class="font-black text-base text-slate-900">${r.title}</h4>
+          <p class="text-slate-700 bg-slate-50 p-3.5 rounded-xl border border-slate-200">${r.description}</p>
+          <div class="text-[11px] font-bold text-[#00522b] bg-[#e8f5ee] p-2.5 rounded-xl">⚡ Đơn vị nhận tin báo tự động: [${r.stationName}] + [Ban Chỉ huy BĐBP Tỉnh Điện Biên]</div>
+          ${currentRole !== 'dan' ? `
+            <div class="flex flex-wrap gap-2 pt-2">
+              <button onclick="updateReportStatus('${r.id}', 'received')" class="bg-blue-700 text-white font-bold px-3.5 py-2 rounded-xl">1. Tiếp nhận tin báo</button>
+              <button onclick="updateReportStatus('${r.id}', 'in_progress')" class="bg-purple-700 text-white font-bold px-3.5 py-2 rounded-xl">2. Triển khai lực lượng xử lý</button>
+              <button onclick="updateReportStatus('${r.id}', 'resolved')" class="bg-[#006837] text-yellow-300 font-black px-3.5 py-2 rounded-xl">3. Hoàn tất xử lý</button>
+            </div>
+          ` : ''}
         </div>
       `).join('');
-    }
+    };
 
     document.getElementById('postForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const role = roleSel.value;
       const st = STATIONS.find(s => s.id === stationSel.value) || STATIONS[0];
       const newPost = {
         id: 'p_' + Date.now(),
-        authorName: role === 'dan' ? 'Người dân địa bàn' : (role === 'don_bp' ? st.name : 'Ban Chỉ huy BĐBP Tỉnh'),
-        authorRole: role,
+        authorName: currentRole === 'dan' ? 'Người dân địa bàn' : (currentRole === 'don_bp' ? st.name : 'Ban Chỉ huy BĐBP Tỉnh'),
+        authorRole: currentRole,
         stationId: st.id,
         stationName: st.name,
         areaLabel: st.area,
         title: document.getElementById('postTitle').value,
         content: document.getElementById('postContent').value,
-        status: role === 'dan' ? 'pending' : 'approved',
-        approvedBy: role === 'dan' ? '' : st.name,
+        status: currentRole === 'dan' ? 'pending' : 'approved',
+        approvedBy: currentRole === 'dan' ? '' : st.name,
         createdAt: new Date().toLocaleString('vi-VN'),
         timestamp: Date.now()
       };
       POSTS = [newPost, ...POSTS];
+      LOGS = [{ id: 'log_' + Date.now(), tier: currentRole.toUpperCase(), actor: newPost.authorName, action: 'Đăng bài mới', target: newPost.title, detail: st.name, time: newPost.createdAt }, ...LOGS];
+      persistSharedState();
       e.target.reset();
       renderAll();
       if (db) {
@@ -481,6 +645,8 @@
         timestamp: Date.now()
       };
       REPORTS = [newRep, ...REPORTS];
+      LOGS = [{ id: 'log_' + Date.now(), tier: 'CẤP 1: DÂN', actor: newRep.senderName, action: 'Gửi tin báo tự động 2 cấp', target: newRep.code + ': ' + newRep.title, detail: st.name + ' & BCH Tỉnh', time: newRep.createdAt }, ...LOGS];
+      persistSharedState();
       e.target.reset();
       window.switchTab('inbox');
       if (db) {
@@ -498,13 +664,13 @@
         db = getFirestore(app);
         await signInAnonymously(auth);
         onSnapshot(collection(db, 'artifacts', APP_ID, 'public', 'data', 'posts'), (snap) => {
-          if (!snap.empty) { POSTS = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderAll(); }
+          if (!snap.empty) { POSTS = snap.docs.map(d => ({ id: d.id, ...d.data() })); persistSharedState(); renderAll(); }
         });
         onSnapshot(collection(db, 'artifacts', APP_ID, 'public', 'data', 'reports'), (snap) => {
-          if (!snap.empty) { REPORTS = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderAll(); }
+          if (!snap.empty) { REPORTS = snap.docs.map(d => ({ id: d.id, ...d.data() })); persistSharedState(); renderAll(); }
         });
       }
-    } catch (e) { console.warn('Chế độ dữ liệu tích hợp sẵn:', e); }
+    } catch (e) {}
   </script>
 </body>
 </html>
