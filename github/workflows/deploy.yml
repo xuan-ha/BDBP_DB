@@ -1,0 +1,31 @@
+name: Deploy BDBP Dien Bien to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build / Prepare Static Files
+        run: |
+          mkdir -p dist
+          # Sao chép các tệp mã nguồn ứng dụng và trang CMS độc lập vào thư mục public deployment
+          cp index.html dist/ 2>/dev/null || true
+          cp cms.html dist/ 2>/dev/null || true
+          cp app.jsx dist/ 2>/dev/null || true
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
