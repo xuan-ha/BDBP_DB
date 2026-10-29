@@ -3,820 +3,657 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bộ đội Biên Phòng Điện Biên</title>
+  <title>BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN - Ứng Dụng 3 Cấp</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; background-color: #f0f4f1; }
-    .bg-bp-green { background-color: #006837; }
-    .bg-bp-dark { background-color: #004d28; }
-    .text-bp-green { color: #006837; }
-    .border-bp-green { border-color: #006837; }
-  </style>
 </head>
-<body>
-  <div id="root"></div>
-
-  <script type="text/babel">
-    const { useState } = React;
-
-    // --- LOGO BỘ ĐỘI BIÊN PHÒNG VIỆT NAM (SVG CHUẨN THEO HÌNH TẢI LÊN) ---
-    const BorderGuardLogo = ({ size = 64, className = "" }) => (
-      <svg width={size} height={size} viewBox="0 0 300 300" className={className} xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <path id="textArcTop" d="M 38,150 A 112,112 0 1,1 262,150" />
-          <clipPath id="innerCircle">
-            <circle cx="150" cy="150" r="95" />
-          </clipPath>
-        </defs>
-        {/* Viền ngoài trắng & xanh đậm */}
-        <circle cx="150" cy="150" r="146" fill="#ffffff" stroke="#006837" strokeWidth="6" />
-        <circle cx="150" cy="150" r="96" fill="#fff200" stroke="#006837" strokeWidth="3" />
-
-        {/* Nội dung bên trong vòng tròn trung tâm */}
-        <g clipPath="url(#innerCircle)">
-          {/* Nền vàng */}
-          <rect x="50" y="50" width="200" height="200" fill="#fff200" />
-          {/* Núi xanh */}
-          <polygon points="90,195 140,75 185,195" fill="#0072bc" />
-          <polygon points="135,195 170,95 215,195" fill="#008fd5" />
-          <polygon points="50,195 250,195 250,135 205,115 150,155 85,125 50,150" fill="#0054a6" opacity="0.85" />
-          
-          {/* Sóng nước xanh - trắng ở đáy */}
-          <rect x="50" y="195" width="200" height="60" fill="#ffffff" />
-          <path d="M 50,208 Q 75,198 100,208 T 150,208 T 200,208 T 250,208 L 250,220 L 50,220 Z" fill="#0072bc" />
-          <path d="M 50,228 Q 75,218 100,228 T 150,228 T 200,228 T 250,228 L 250,240 L 50,240 Z" fill="#0072bc" />
-
-          {/* Ngựa phi & Chiến sĩ Biên phòng */}
-          <g transform="translate(5, -5)">
-            {/* Thân ngựa nâu đỏ */}
-            <path d="M 75,180 L 105,155 L 125,145 L 185,140 L 210,115 L 222,125 L 205,155 L 230,175 L 222,182 L 195,165 L 130,168 L 95,192 Z" fill="#a62626" stroke="#ffffff" strokeWidth="1.5" />
-            {/* Đuôi ngựa */}
-            <path d="M 105,152 Q 80,145 68,162 Q 85,168 105,158 Z" fill="#a62626" stroke="#ffffff" strokeWidth="1.2" />
-            {/* Áo choàng & Chiến sĩ áo xanh */}
-            <path d="M 145,145 L 140,108 L 165,108 L 172,142 Z" fill="#006837" stroke="#ffffff" strokeWidth="1.2" />
-            {/* Áo choàng bay */}
-            <path d="M 145,112 Q 110,98 88,115 Q 112,128 142,124 Z" fill="#006837" stroke="#ffffff" strokeWidth="1.2" />
-            {/* Mũ sắt xanh & Đầu chiến sĩ */}
-            <circle cx="158" cy="98" r="8" fill="#ffffff" />
-            <path d="M 148,96 Q 158,84 168,96 Z" fill="#006837" />
-            {/* Súng trường đen */}
-            <line x1="132" y1="145" x2="168" y2="122" stroke="#111111" strokeWidth="4" />
-          </g>
-        </g>
-
-        {/* Vòng tròn viền lại khung giữa */}
-        <circle cx="150" cy="150" r="96" fill="none" stroke="#006837" strokeWidth="3.5" />
-
-        {/* Chữ BỘ ĐỘI BIÊN PHÒNG VIỆT NAM */}
-        <text fill="#006837" fontSize="17.5" fontWeight="800" letterSpacing="1.2">
-          <textPath href="#textArcTop" startOffset="50%" textAnchor="middle">
-            BỘ ĐỘI BIÊN PHÒNG VIỆT NAM
-          </textPath>
-        </text>
-
-        {/* 2 Ngôi sao đỏ viền vàng 2 bên */}
-        <polygon points="32,140 35,148 44,148 37,153 39,161 32,156 25,161 27,153 20,148 29,148" fill="#ed1c24" stroke="#fff200" strokeWidth="1" />
-        <polygon points="268,140 271,148 280,148 273,153 275,161 268,156 261,161 263,153 256,148 265,148" fill="#ed1c24" stroke="#fff200" strokeWidth="1" />
-
-        {/* Cột mốc / Cấp hiệu trang trí hai bên dưới */}
-        <g fill="#006837">
-          <rect x="28" y="175" width="18" height="10" rx="2" transform="rotate(20 37 180)" />
-          <rect x="48" y="218" width="18" height="10" rx="2" transform="rotate(45 57 223)" />
-          <rect x="82" y="250" width="18" height="10" rx="2" transform="rotate(65 91 255)" />
-          <rect x="254" y="175" width="18" height="10" rx="2" transform="rotate(-20 263 180)" />
-          <rect x="234" y="218" width="18" height="10" rx="2" transform="rotate(-45 243 223)" />
-          <rect x="200" y="250" width="18" height="10" rx="2" transform="rotate(-65 209 255)" />
-        </g>
-
-        {/* Ngày truyền thống 3 - 3 - 1959 */}
-        <text x="150" y="282" textAnchor="middle" fill="#006837" fontSize="22" fontWeight="900" letterSpacing="2">
-          3 - 3 - 1959
-        </text>
-      </svg>
-    );
-
-    // --- DANH MỤC ĐỒN BIÊN PHÒNG & ĐỊA BÀN ĐIỆN BIÊN ---
-    const DON_BIEN_PHONG = [
-      { id: 'all', name: 'Toàn tỉnh Điện Biên', station: 'Ban Chỉ huy BĐBP Tỉnh Điện Biên' },
-      { id: 'apachai', name: 'Xã Sín Thầu (Mường Nhé)', station: 'Đồn Biên phòng A Pa Chải' },
-      { id: 'lengsusin', name: 'Xã Leng Su Sìn (Mường Nhé)', station: 'Đồn Biên phòng Leng Su Sìn' },
-      { id: 'napung', name: 'Xã Na Cô Sa (Nậm Pồ)', station: 'Đồn Biên phòng Na Cô Sa' },
-      { id: 'taytrang', name: 'Xã Na Ư (H. Điện Biên)', station: 'Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang' },
-      { id: 'pathom', name: 'Xã Pa Thơm (H. Điện Biên)', station: 'Đồn Biên phòng Pa Thơm' },
-      { id: 'muongmon', name: 'Xã Mường Mơn (Mường Chà)', station: 'Đồn Biên phòng Mường Mơn' },
-    ];
-
-    function App() {
-      // Màn hình đăng nhập hay vào app
-      const [isLoggedIn, setIsLoggedIn] = useState(true);
-      const [authMode, setAuthMode] = useState('login'); // 'login' | 'register'
-
-      // 3 Cấp tài khoản: 'dan' (Người dân), 'don' (Đồn Biên Phòng), 'bch' (Ban Chỉ huy)
-      const [role, setRole] = useState('dan');
-      const [assignedStationId, setAssignedStationId] = useState('apachai'); // Đồn đang phụ trách nếu role === 'don'
-      const [activeTab, setActiveTab] = useState('feed'); // 'feed' | 'report' | 'moderation' | 'inbox'
-      const [selectedAreaFilter, setSelectedAreaFilter] = useState('all');
-
-      // Dữ liệu Bài viết Cộng đồng (Cần duyệt từ Đồn BP hoặc Ban Chỉ huy)
-      const [posts, setPosts] = useState([
-        {
-          id: 101,
-          author: 'Đồn Biên phòng A Pa Chải',
-          authorRole: 'don',
-          areaId: 'apachai',
-          time: '2 giờ trước',
-          content: 'Sáng nay, tổ tuần tra song phương Đồn Biên phòng A Pa Chải phối hợp cùng nhân dân bản Tá Miếu phát quang đường tuần tra khu vực Mốc quốc giới số 0.',
-          status: 'approved',
-          approvedBy: 'Ban Chỉ huy BĐBP Tỉnh',
-          likes: 48
-        },
-        {
-          id: 102,
-          author: 'Lò Văn Páo (Người dân bản Sín Thầu)',
-          authorRole: 'dan',
-          areaId: 'apachai',
-          time: '35 phút trước',
-          content: 'Bà con xã Sín Thầu cảm ơn các cán bộ quân y Đồn Biên phòng A Pa Chải đã khám bệnh và cấp phát thuốc miễn phí cho trẻ em trong bản dịp cuối tuần.',
-          status: 'approved',
-          approvedBy: 'Đồn Biên phòng A Pa Chải',
-          likes: 32
-        },
-        {
-          id: 103,
-          author: 'Thào Aình (Người dân xã Na Ư)',
-          authorRole: 'dan',
-          areaId: 'taytrang',
-          time: 'Vừa xong',
-          content: 'Tuyến đường lên khu vực biên giới xã Na Ư sau trận mưa đêm qua có một số điểm sạt lở đất đá nhỏ, bà con đi nương chú ý an toàn nhé.',
-          status: 'pending',
-          approvedBy: null,
-          likes: 0
-        }
-      ]);
-
-      // Dữ liệu Tin báo (Tự động gửi tới Đồn Biên phòng nơi xảy ra vụ việc + Ban Chỉ huy)
-      const [reports, setReports] = useState([
-        {
-          id: 'TB-2026-01',
-          sender: 'Giàng A Súa (Người dân)',
-          areaId: 'apachai',
-          targetStation: 'Đồn Biên phòng A Pa Chải',
-          ccCommand: 'Ban Chỉ huy BĐBP Tỉnh Điện Biên',
-          category: 'Vượt biên trái phép / Người lạ mặt',
-          title: 'Phát hiện 3 người lạ mặt gần khu vực đường mòn mốc số 2',
-          description: 'Khoảng 17h30 chiều nay khi đi thu hoạch thảo quả về, tôi phát hiện 3 người lạ mặt mang vác balo lớn di chuyển khuất vào rừng khu vực giáp ranh xã Sín Thầu.',
-          priority: 'urgent',
-          status: 'received',
-          time: '15 phút trước',
-          history: [
-            { step: 'Đã gửi tin báo tự động tới Đồn BP A Pa Chải & Ban Chỉ huy Tỉnh', time: '15 phút trước' },
-            { step: 'Đồn Biên phòng A Pa Chải đã tiếp nhận & cử tổ công tác xác minh', time: '5 phút trước' }
-          ]
-        },
-        {
-          id: 'TB-2026-02',
-          sender: 'Quàng Văn Hặc (Trưởng bản Pa Thơm)',
-          areaId: 'pathom',
-          targetStation: 'Đồn Biên phòng Pa Thơm',
-          ccCommand: 'Ban Chỉ huy BĐBP Tỉnh Điện Biên',
-          category: 'An ninh trật tự / Tệ nạn',
-          title: 'Trình báo đối tượng khả nghi lôi kéo thanh niên bản',
-          description: 'Có 1 đối tượng từ địa phương khác đến bản Pa Thơm có biểu hiện rủ rê thanh niên vượt biên lao động không giấy tờ.',
-          priority: 'high',
-          status: 'submitted',
-          time: '1 giờ trước',
-          history: [
-            { step: 'Đã gửi tin báo tự động tới Đồn BP Pa Thơm & Ban Chỉ huy Tỉnh', time: '1 giờ trước' }
-          ]
-        }
-      ]);
-
-      // State form tạo bài viết mới
-      const [newPostContent, setNewPostContent] = useState('');
-      const [newPostArea, setNewPostArea] = useState('apachai');
-
-      // State form gửi tin báo mới
-      const [reportArea, setReportArea] = useState('apachai');
-      const [reportCategory, setReportCategory] = useState('Vượt biên trái phép / Người lạ mặt');
-      const [reportTitle, setReportTitle] = useState('');
-      const [reportDesc, setReportDesc] = useState('');
-      const [reportPriority, setReportPriority] = useState('high');
-      const [toastMsg, setToastMsg] = useState(null);
-
-      const showToast = (msg) => {
-        setToastMsg(msg);
-        setTimeout(() => setToastMsg(null), 4500);
-      };
-
-      // Xử lý đăng bài mới
-      const handleCreatePost = (e) => {
-        e.preventDefault();
-        if (!newPostContent.trim()) return;
-        const isOfficial = role !== 'dan';
-        const stationObj = DON_BIEN_PHONG.find(d => d.id === newPostArea);
-        const newPost = {
-          id: Date.now(),
-          author: role === 'dan' ? 'Người dân biên giới' : (role === 'don' ? stationObj.station : 'Ban Chỉ huy BĐBP Tỉnh Điện Biên'),
-          authorRole: role,
-          areaId: newPostArea,
-          time: 'Vừa xong',
-          content: newPostContent,
-          status: isOfficial ? 'approved' : 'pending',
-          approvedBy: isOfficial ? 'Đăng trực tiếp từ đơn vị' : null,
-          likes: 0
-        };
-        setPosts([newPost, ...posts]);
-        setNewPostContent('');
-        if (isOfficial) {
-          showToast('Đã đăng bài thông báo chính thức lên Bảng tin!');
-        } else {
-          showToast(`Bài viết đã được gửi! Đang chờ ${stationObj.station} hoặc Ban Chỉ huy phê duyệt.`);
-        }
-      };
-
-      // Xử lý duyệt bài của Đồn BP hoặc Ban Chỉ huy
-      const handleApprovePost = (postId) => {
-        const approverName = role === 'bch'
-          ? 'Ban Chỉ huy BĐBP Tỉnh Điện Biên'
-          : DON_BIEN_PHONG.find(d => d.id === assignedStationId)?.station;
-
-        setPosts(posts.map(p => p.id === postId ? { ...p, status: 'approved', approvedBy: approverName } : p));
-        showToast(`Đã phê duyệt bài viết hiển thị lên Bảng tin công khai!`);
-      };
-
-      const handleRejectPost = (postId) => {
-        setPosts(posts.filter(p => p.id !== postId));
-        showToast('Đã từ chối và gỡ bài viết.');
-      };
-
-      // Xử lý người dân gửi tin báo -> Tự động định tuyến tới Đồn BP khu vực + Ban Chỉ huy
-      const handleSendReport = (e) => {
-        e.preventDefault();
-        if (!reportTitle.trim() || !reportDesc.trim()) return;
-        const targetObj = DON_BIEN_PHONG.find(d => d.id === reportArea);
-        const newRep = {
-          id: `TB-2026-0${reports.length + 1}`,
-          sender: 'Người dân địa bàn ( Đã xác thực )',
-          areaId: reportArea,
-          targetStation: targetObj.station,
-          ccCommand: 'Ban Chỉ huy BĐBP Tỉnh Điện Biên',
-          category: reportCategory,
-          title: reportTitle,
-          description: reportDesc,
-          priority: reportPriority,
-          status: 'submitted',
-          time: 'Vừa xong',
-          history: [
-            {
-              step: `Hệ thống tự động chuyển đồng thời tới [${targetObj.station}] và [Ban Chỉ huy BĐBP Tỉnh Điện Biên]`,
-              time: 'Vừa xong'
-            }
-          ]
-        };
-        setReports([newRep, ...reports]);
-        setReportTitle('');
-        setReportDesc('');
-        showToast(`Đã gửi tin báo khẩn! Tin đã chuyển thẳng tới ${targetObj.station} VÀ Ban Chỉ huy BĐBP Tỉnh.`);
-      };
-
-      // Cập nhật trạng thái xử lý tin báo
-      const handleUpdateReportStatus = (repId, newStatus, actionText) => {
-        const actorName = role === 'bch'
-          ? 'Ban Chỉ huy BĐBP Tỉnh'
-          : DON_BIEN_PHONG.find(d => d.id === assignedStationId)?.station;
-
-        setReports(reports.map(r => {
-          if (r.id !== repId) return r;
-          return {
-            ...r,
-            status: newStatus,
-            history: [...r.history, { step: `${actorName}: ${actionText}`, time: 'Vừa xong' }]
-          };
-        }));
-        showToast(`Đã cập nhật trạng thái tin báo ${repId}`);
-      };
-
-      // --- MÀN HÌNH ĐĂNG NHẬP / ĐĂNG KÝ CÓ HÌNH NỀN LOGO BIÊN PHÒNG ---
-      if (!isLoggedIn) {
-        return (
-          <div className="min-h-screen bg-bp-dark relative flex items-center justify-center p-4 overflow-hidden">
-            {/* Logo Bộ đội Biên phòng Việt Nam làm nền chìm lớn ở giữa */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-15">
-              <BorderGuardLogo size={540} />
-            </div>
-
-            <div className="relative z-10 w-full max-w-md bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border-2 border-yellow-400 overflow-hidden">
-              <div className="bg-bp-green text-white p-6 text-center border-b-4 border-yellow-400">
-                <div className="flex justify-center mb-3">
-                  <BorderGuardLogo size={95} className="drop-shadow-lg" />
-                </div>
-                <h1 className="text-xl font-extrabold uppercase tracking-wide text-yellow-300">
-                  Bộ đội Biên Phòng Điện Biên
-                </h1>
-                <p className="text-xs text-green-100 mt-1">
-                  Hệ thống Quản lý Địa bàn & Tiếp nhận Tin báo Nhân dân
-                </p>
-              </div>
-
-              <div className="p-6">
-                <div className="flex rounded-lg bg-gray-100 p-1 mb-5">
-                  <button
-                    onClick={() => setAuthMode('login')}
-                    className={`flex-1 py-2 text-sm font-bold rounded-md transition ${authMode === 'login' ? 'bg-bp-green text-white shadow' : 'text-gray-600'}`}
-                  >
-                    Đăng nhập
-                  </button>
-                  <button
-                    onClick={() => setAuthMode('register')}
-                    className={`flex-1 py-2 text-sm font-bold rounded-md transition ${authMode === 'register' ? 'bg-bp-green text-white shadow' : 'text-gray-600'}`}
-                  >
-                    Đăng ký tài khoản
-                  </button>
-                </div>
-
-                <form onSubmit={(e) => { e.preventDefault(); setIsLoggedIn(true); }} className="space-y-4">
-                  {authMode === 'register' && (
-                    <div>
-                      <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Họ và tên</label>
-                      <input type="text" required placeholder="Nhập họ tên đầy đủ..." className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-700" />
-                    </div>
-                  )}
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Số điện thoại / Mã định danh</label>
-                    <input type="text" defaultValue="0912345678" required className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-700" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Mật khẩu</label>
-                    <input type="password" defaultValue="••••••••" required className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-700" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Chọn Cấp truy cập để kiểm thử</label>
-                    <select
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      className="w-full px-3 py-2 border rounded-lg text-sm font-semibold bg-green-50 text-bp-green"
-                    >
-                      <option value="dan">Cấp 1: Người dân biên giới</option>
-                      <option value="don">Cấp 2: Đồn Biên phòng quản lý khu vực</option>
-                      <option value="bch">Cấp 3: Ban Chỉ huy BĐBP Tỉnh Điện Biên</option>
-                    </select>
-                  </div>
-
-                  <button type="submit" className="w-full bg-bp-green hover:bg-bp-dark text-yellow-300 font-bold py-3 rounded-lg shadow-lg uppercase tracking-wider text-sm transition">
-                    {authMode === 'login' ? 'Vào Hệ Thống' : 'Hoàn Tất Đăng Ký'}
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        );
-      }
-
-      // Lọc bài viết chờ duyệt và tin báo theo quyền của Đồn Biên phòng hoặc Ban Chỉ huy
-      const pendingPostsForMe = posts.filter(p => {
-        if (p.status !== 'pending') return false;
-        if (role === 'bch') return true;
-        if (role === 'don') return p.areaId === assignedStationId;
-        return false;
-      });
-
-      const reportsForMe = reports.filter(r => {
-        if (role === 'bch') return true; // Ban chỉ huy nhận toàn bộ
-        if (role === 'don') return r.areaId === assignedStationId; // Đồn nhận tin trong khu vực
-        return true; // Dân xem tin của mình đã gửi
-      });
-
-      return (
-        <div className="min-h-screen flex flex-col">
-          {/* Thông báo Toast */}
-          {toastMsg && (
-            <div className="fixed bottom-5 right-5 z-50 bg-bp-green text-white px-5 py-3 rounded-xl shadow-2xl border-2 border-yellow-400 flex items-center gap-3 max-w-md animate-bounce">
-              <span className="text-yellow-300 font-bold text-lg">★</span>
-              <span className="text-sm font-medium">{toastMsg}</span>
-            </div>
-          )}
-
-          {/* HEADER CHÍNH MÀU XANH BIÊN PHÒNG */}
-          <header className="bg-bp-green text-white border-b-4 border-yellow-400 shadow-lg sticky top-0 z-30">
-            <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <BorderGuardLogo size={54} className="shrink-0 drop-shadow" />
-                <div>
-                  <h1 className="text-lg md:text-xl font-extrabold tracking-wide text-yellow-300 uppercase">
-                    Bộ đội Biên Phòng Điện Biên
-                  </h1>
-                  <p className="text-xs text-green-100">
-                    Kết nối Nhân dân • Quản lý Địa bàn • Tiếp nhận Tin báo 3 Cấp
-                  </p>
-                </div>
-              </div>
-
-              {/* Bộ chuyển đổi nhanh 3 cấp để test */}
-              <div className="flex flex-wrap items-center gap-2">
-                <div className="bg-bp-dark px-3 py-1.5 rounded-lg border border-green-600 flex items-center gap-2">
-                  <span className="text-xs text-yellow-300 font-bold">Đang xem với vai trò:</span>
-                  <select
-                    value={role}
-                    onChange={(e) => {
-                      setRole(e.target.value);
-                      setActiveTab('feed');
-                    }}
-                    className="bg-white text-bp-green text-xs font-bold px-2 py-1 rounded focus:outline-none"
-                  >
-                    <option value="dan">👤 Cấp 1: Người dân</option>
-                    <option value="don">🛡️ Cấp 2: Đồn Biên phòng</option>
-                    <option value="bch">⭐ Cấp 3: Ban Chỉ huy BĐBP Tỉnh</option>
-                  </select>
-                </div>
-
-                {role === 'don' && (
-                  <select
-                    value={assignedStationId}
-                    onChange={(e) => setAssignedStationId(e.target.value)}
-                    className="bg-yellow-400 text-bp-dark text-xs font-extrabold px-2.5 py-2 rounded-lg"
-                  >
-                    {DON_BIEN_PHONG.filter(d => d.id !== 'all').map(d => (
-                      <option key={d.id} value={d.id}>{d.station}</option>
-                    ))}
-                  </select>
-                )}
-
-                <button
-                  onClick={() => setIsLoggedIn(false)}
-                  className="bg-red-700 hover:bg-red-800 text-white text-xs font-bold px-3 py-2 rounded-lg transition"
-                >
-                  Màn hình Đăng nhập
-                </button>
-              </div>
-            </div>
-
-            {/* THANH ĐIỀU HƯỚNG CHỨC NĂNG */}
-            <div className="bg-bp-dark">
-              <div className="max-w-6xl mx-auto px-4 flex overflow-x-auto space-x-2 py-2">
-                <button
-                  onClick={() => setActiveTab('feed')}
-                  className={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold whitespace-nowrap transition ${activeTab === 'feed' ? 'bg-yellow-400 text-bp-dark shadow' : 'text-green-100 hover:bg-green-800'}`}
-                >
-                  📰 Bảng tin Biên giới
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('report')}
-                  className={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold whitespace-nowrap transition ${activeTab === 'report' ? 'bg-yellow-400 text-bp-dark shadow' : 'text-green-100 hover:bg-green-800'}`}
-                >
-                  🚨 {role === 'dan' ? 'Gửi Tin Báo Vụ Việc' : 'Danh Sách Tin Báo Tự Động'} ({reportsForMe.length})
-                </button>
-
-                {(role === 'don' || role === 'bch') && (
-                  <button
-                    onClick={() => setActiveTab('moderation')}
-                    className={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold whitespace-nowrap transition flex items-center gap-1.5 ${activeTab === 'moderation' ? 'bg-yellow-400 text-bp-dark shadow' : 'text-green-100 hover:bg-green-800'}`}
-                  >
-                    <span>✅ Duyệt Bài Đăng Của Dân</span>
-                    {pendingPostsForMe.length > 0 && (
-                      <span className="bg-red-600 text-white px-2 py-0.5 rounded-full text-xs">
-                        {pendingPostsForMe.length}
-                      </span>
-                    )}
-                  </button>
-                )}
-              </div>
-            </div>
-          </header>
-
-          {/* NỘI DUNG CHÍNH */}
-          <main className="max-w-6xl mx-auto w-full px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* CỘT TRÁI: THÔNG TIN PHÂN CẤP & ĐỊA BÀN */}
-            <div className="space-y-4">
-              <div className="bg-white rounded-xl shadow p-4 border-t-4 border-bp-green">
-                <div className="flex items-center gap-3 mb-3">
-                  <BorderGuardLogo size={44} />
-                  <div>
-                    <div className="text-xs font-bold text-gray-500 uppercase">Cấp tài khoản hiện tại</div>
-                    <div className="text-sm font-extrabold text-bp-green">
-                      {role === 'dan' && 'CẤP 1: NGƯỜI DÂN ĐỊA BÀN'}
-                      {role === 'don' && `CẤP 2: ${DON_BIEN_PHONG.find(d => d.id === assignedStationId)?.station.toUpperCase()}`}
-                      {role === 'bch' && 'CẤP 3: BAN CHỈ HUY BĐBP TỈNH'}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-xs text-gray-600 bg-green-50 p-3 rounded-lg border border-green-200 space-y-1.5">
-                  <p className="font-bold text-bp-green">Quy tắc vận hành tự động:</p>
-                  <p>• <b>Tin báo của Dân:</b> Tự động gửi thẳng tới tài khoản <b>Đồn Biên phòng</b> nơi xảy ra vụ việc VÀ <b>Ban Chỉ huy</b>.</p>
-                  <p>• <b>Bài đăng của Dân:</b> Phải được <b>Đồn Biên phòng</b> quản lý khu vực đó hoặc <b>Ban Chỉ huy</b> duyệt mới hiển thị công khai.</p>
-                </div>
-              </div>
-
-              {/* Bộ lọc Địa bàn Đồn Biên phòng */}
-              <div className="bg-white rounded-xl shadow p-4">
-                <h3 className="text-sm font-extrabold text-bp-green uppercase mb-3">
-                  📍 Lọc theo Địa bàn Đồn Biên phòng
-                </h3>
-                <div className="space-y-1.5">
-                  {DON_BIEN_PHONG.map(area => (
-                    <button
-                      key={area.id}
-                      onClick={() => setSelectedAreaFilter(area.id)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-xs font-semibold transition flex justify-between items-center ${selectedAreaFilter === area.id ? 'bg-bp-green text-white' : 'hover:bg-gray-100 text-gray-700'}`}
-                    >
-                      <span>{area.name}</span>
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded ${selectedAreaFilter === area.id ? 'bg-yellow-400 text-bp-dark font-bold' : 'bg-gray-200 text-gray-600'}`}>
-                        {area.station.replace('Đồn Biên phòng ', 'Đồn ')}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* CỘT PHẢI (2 CỘT): HIỂN THỊ THEO TAB */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* TAB 1: BẢNG TIN CỘNG ĐỒNG */}
-              {activeTab === 'feed' && (
-                <>
-                  {/* Khung đăng bài mới */}
-                  <div className="bg-white rounded-xl shadow p-4 border border-green-200">
-                    <h3 className="text-sm font-extrabold text-bp-green uppercase mb-3">
-                      ✍️ Đăng bài lên Bảng tin Biên giới
-                    </h3>
-                    <form onSubmit={handleCreatePost} className="space-y-3">
-                      <textarea
-                        rows="3"
-                        value={newPostContent}
-                        onChange={(e) => setNewPostContent(e.target.value)}
-                        placeholder={role === 'dan' ? "Chia sẻ thông tin, hoạt động tại thôn bản của bạn (Bài viết sẽ được Đồn Biên phòng hoặc Ban Chỉ huy duyệt trước khi hiển thị)..." : "Đăng thông báo tuyên truyền chính thức của đơn vị..."}
-                        className="w-full p-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-700"
-                      />
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-gray-600">Khu vực:</span>
-                          <select
-                            value={newPostArea}
-                            onChange={(e) => setNewPostArea(e.target.value)}
-                            className="border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-bp-green bg-green-50"
-                          >
-                            {DON_BIEN_PHONG.filter(d => d.id !== 'all').map(d => (
-                              <option key={d.id} value={d.id}>{d.name} ({d.station})</option>
-                            ))}
-                          </select>
-                        </div>
-                        <button type="submit" className="bg-bp-green hover:bg-bp-dark text-yellow-300 font-bold text-xs px-5 py-2.5 rounded-lg shadow uppercase">
-                          {role === 'dan' ? 'Gửi bài chờ duyệt' : 'Đăng bài ngay'}
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-
-                  {/* Danh sách bài viết đã duyệt */}
-                  <div className="space-y-4">
-                    {posts
-                      .filter(p => p.status === 'approved' && (selectedAreaFilter === 'all' || p.areaId === selectedAreaFilter))
-                      .map(post => {
-                        const areaObj = DON_BIEN_PHONG.find(d => d.id === post.areaId);
-                        return (
-                          <div key={post.id} className="bg-white rounded-xl shadow p-5 border-l-4 border-bp-green">
-                            <div className="flex items-start justify-between mb-2">
-                              <div className="flex items-center gap-2.5">
-                                <BorderGuardLogo size={38} />
-                                <div>
-                                  <h4 className="font-bold text-sm text-gray-900">{post.author}</h4>
-                                  <p className="text-xs text-gray-500">
-                                    {post.time} • 📍 {areaObj?.name} ({areaObj?.station})
-                                  </p>
-                                </div>
-                              </div>
-                              <span className="bg-green-100 text-bp-green text-[11px] font-bold px-2.5 py-1 rounded-full">
-                                ✓ Đã duyệt bởi: {post.approvedBy}
-                              </span>
-                            </div>
-                            <p className="text-sm text-gray-800 my-3 leading-relaxed">{post.content}</p>
-                            <div className="flex items-center justify-between pt-3 border-t text-xs text-gray-500">
-                              <button className="font-bold text-bp-green hover:underline">
-                                👍 Thích ({post.likes})
-                              </button>
-                              <span>Phạm vi: {areaObj?.station}</span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </>
-              )}
-
-              {/* TAB 2: GỬI TIN BÁO & THEO DÕI TIN BÁO TỰ ĐỘNG */}
-              {activeTab === 'report' && (
-                <div className="space-y-6">
-                  {/* Form gửi tin báo dành cho Người dân */}
-                  <div className="bg-white rounded-xl shadow p-5 border-t-4 border-red-600">
-                    <h3 className="text-base font-extrabold text-red-700 uppercase mb-1">
-                      🚨 Gửi Tin Báo Tố Giác / Sự Việc Biên Giới
-                    </h3>
-                    <p className="text-xs text-gray-600 mb-4">
-                      Khi bấm gửi, tin báo sẽ <b>tự động chuyển tới tài khoản Đồn Biên phòng quản lý địa bàn nơi xảy ra vụ việc VÀ Ban Chỉ huy BĐBP Tỉnh</b>.
-                    </p>
-
-                    <form onSubmit={handleSendReport} className="space-y-3">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Địa bàn xảy ra vụ việc *</label>
-                          <select
-                            value={reportArea}
-                            onChange={(e) => setReportArea(e.target.value)}
-                            className="w-full border rounded-lg px-3 py-2 text-xs font-bold text-bp-green bg-green-50"
-                          >
-                            {DON_BIEN_PHONG.filter(d => d.id !== 'all').map(d => (
-                              <option key={d.id} value={d.id}>{d.name} → {d.station}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <div>
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Loại tin báo *</label>
-                          <select
-                            value={reportCategory}
-                            onChange={(e) => setReportCategory(e.target.value)}
-                            className="w-full border rounded-lg px-3 py-2 text-xs font-semibold"
-                          >
-                            <option>Vượt biên trái phép / Người lạ mặt</option>
-                            <option>Xâm phạm cột mốc / Đường biên</option>
-                            <option>Buôn lậu / Vận chuyển hàng cấm</option>
-                            <option>An ninh trật tự / Thiên tai sạt lở</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      {/* Hộp hiển thị đơn vị nhận tự động */}
-                      <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-3 text-xs">
-                        <div className="font-bold text-bp-green mb-1">📡 Tự động định tuyến người nhận:</div>
-                        <div>1. <b>Đơn vị trực tiếp:</b> {DON_BIEN_PHONG.find(d => d.id === reportArea)?.station}</div>
-                        <div>2. <b>Đơn vị chỉ huy cấp trên:</b> Ban Chỉ huy BĐBP Tỉnh Điện Biên</div>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div className="md:col-span-2">
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Tiêu đề sự việc *</label>
-                          <input
-                            type="text"
-                            required
-                            value={reportTitle}
-                            onChange={(e) => setReportTitle(e.target.value)}
-                            placeholder="Ví dụ: Phát hiện người lạ mặt gần mốc quốc giới..."
-                            className="w-full border rounded-lg px-3 py-2 text-sm"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs font-bold text-gray-700 mb-1">Mức độ khẩn cấp</label>
-                          <select
-                            value={reportPriority}
-                            onChange={(e) => setReportPriority(e.target.value)}
-                            className="w-full border rounded-lg px-3 py-2 text-sm font-bold text-red-700"
-                          >
-                            <option value="urgent">🔥 Khẩn cấp</option>
-                            <option value="high">⚠️ Cao</option>
-                            <option value="normal">Bình thường</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-gray-700 mb-1">Nội dung chi tiết & Vị trí *</label>
-                        <textarea
-                          rows="3"
-                          required
-                          value={reportDesc}
-                          onChange={(e) => setReportDesc(e.target.value)}
-                          placeholder="Mô tả cụ thể thời gian, địa điểm, đặc điểm đối tượng hoặc sự việc..."
-                          className="w-full border rounded-lg p-3 text-sm"
-                        />
-                      </div>
-
-                      <button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white font-extrabold py-3 rounded-lg shadow uppercase text-xs tracking-wider">
-                        🚀 Gửi Tin Báo Ngay Tới Đồn Biên Phòng & Ban Chỉ Huy
-                      </button>
-                    </form>
-                  </div>
-
-                  {/* Danh sách Tin báo */}
-                  <div className="space-y-4">
-                    <h4 className="text-sm font-extrabold text-bp-green uppercase">
-                      📋 Hồ sơ Tin báo ({reportsForMe.length})
-                    </h4>
-                    {reportsForMe.map(rep => (
-                      <div key={rep.id} className="bg-white rounded-xl shadow p-5 border-l-4 border-red-600 space-y-3">
-                        <div className="flex flex-wrap justify-between items-start gap-2">
-                          <div>
-                            <span className="bg-red-100 text-red-800 text-xs font-extrabold px-2 py-0.5 rounded mr-2">
-                              {rep.id}
-                            </span>
-                            <span className="text-xs font-bold text-gray-500">{rep.category} • {rep.time}</span>
-                            <h5 className="text-base font-extrabold text-gray-900 mt-1">{rep.title}</h5>
-                          </div>
-                          <span className="bg-green-100 text-bp-green text-xs font-extrabold px-3 py-1 rounded-full uppercase">
-                            {rep.status === 'submitted' ? 'Mới gửi' : rep.status === 'received' ? 'Đồn đang xác minh' : 'Đã xử lý'}
-                          </span>
-                        </div>
-
-                        <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">{rep.description}</p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs bg-green-50 p-3 rounded-lg border border-green-200">
-                          <div><b>Đồn tiếp nhận:</b> {rep.targetStation}</div>
-                          <div><b>Đồng kính gửi:</b> {rep.ccCommand}</div>
-                        </div>
-
-                        {/* Lịch sử xử lý */}
-                        <div className="text-xs space-y-1 pt-2 border-t">
-                          <div className="font-bold text-gray-600">Nhật ký điều phối & xử lý:</div>
-                          {rep.history.map((h, i) => (
-                            <div key={i} className="text-gray-600">• {h.step} <span className="text-gray-400">({h.time})</span></div>
-                          ))}
-                        </div>
-
-                        {/* Nút tác nghiệp cho Đồn Biên phòng hoặc Ban Chỉ huy */}
-                        {(role === 'don' || role === 'bch') && (
-                          <div className="flex flex-wrap gap-2 pt-2">
-                            <button
-                              onClick={() => handleUpdateReportStatus(rep.id, 'received', 'Đã tiếp nhận tin báo & cử lực lượng xuống địa bàn')}
-                              className="bg-bp-green text-white text-xs font-bold px-3 py-1.5 rounded-lg"
-                            >
-                              ✓ Tiếp nhận & Xác minh
-                            </button>
-                            <button
-                              onClick={() => handleUpdateReportStatus(rep.id, 'resolved', 'Đã xử lý xong vụ việc, tình hình địa bàn ổn định')}
-                              className="bg-yellow-500 text-bp-dark text-xs font-extrabold px-3 py-1.5 rounded-lg"
-                            >
-                              ★ Hoàn tất xử lý
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 3: DUYỆT BÀI ĐĂNG CỦA DÂN (DÀNH CHO ĐỒN BIÊN PHÒNG & BAN CHỈ HUY) */}
-              {activeTab === 'moderation' && (
-                <div className="bg-white rounded-xl shadow p-5 border-t-4 border-yellow-400 space-y-4">
-                  <h3 className="text-base font-extrabold text-bp-green uppercase">
-                    ✅ Hàng Đợi Duyệt Bài Đăng Của Người Dân ({pendingPostsForMe.length})
-                  </h3>
-                  <p className="text-xs text-gray-600">
-                    Bài viết do người dân đăng tại khu vực nào thì <b>Đồn Biên phòng quản lý khu vực đó</b> hoặc <b>Ban Chỉ huy BĐBP Tỉnh</b> có quyền duyệt hiển thị công khai.
-                  </p>
-
-                  {pendingPostsForMe.length === 0 ? (
-                    <div className="text-center py-8 text-gray-500 text-sm">
-                      Hiện không có bài viết nào đang chờ duyệt trong khu vực phụ trách.
-                    </div>
-                  ) : (
-                    pendingPostsForMe.map(post => {
-                      const areaObj = DON_BIEN_PHONG.find(d => d.id === post.areaId);
-                      return (
-                        <div key={post.id} className="border rounded-xl p-4 bg-yellow-50/50 space-y-3">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <span className="font-bold text-sm text-gray-900">{post.author}</span>
-                              <p className="text-xs text-bp-green font-semibold">
-                                Khu vực đăng: {areaObj?.name} (Thuộc {areaObj?.station})
-                              </p>
-                            </div>
-                            <span className="bg-yellow-300 text-bp-dark text-xs font-bold px-2.5 py-1 rounded-full">
-                              Đang chờ duyệt
-                            </span>
-                          </div>
-                          <p className="text-sm text-gray-800 bg-white p-3 rounded-lg border">{post.content}</p>
-                          <div className="flex gap-3">
-                            <button
-                              onClick={() => handleApprovePost(post.id)}
-                              className="bg-bp-green hover:bg-bp-dark text-yellow-300 text-xs font-bold px-4 py-2 rounded-lg shadow"
-                            >
-                              ✓ Phê duyệt hiển thị lên Bảng tin
-                            </button>
-                            <button
-                              onClick={() => handleRejectPost(post.id)}
-                              className="bg-red-100 hover:bg-red-200 text-red-700 text-xs font-bold px-4 py-2 rounded-lg"
-                            >
-                              ✕ Từ chối bài đăng
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
-              )}
-            </div>
-          </main>
+<body class="bg-[#f2f7f4] text-slate-800 font-sans">
+  <div class="bg-gradient-to-r from-[#00522b] via-[#006837] to-[#004222] text-white p-6 border-b-4 border-yellow-400 shadow-lg">
+    <div class="max-w-5xl mx-auto flex items-center justify-between gap-4 flex-wrap">
+      <div class="flex items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/vi/8/81/Huy_hi%E1%BB%87u_B%E1%BB%99_%C4%91%E1%BB%99i_Bi%C3%AAn_ph%C3%B2ng_Vi%E1%BB%87t_Nam.png" alt="Logo BĐBP" class="w-16 h-16 rounded-full bg-white p-1 object-contain" />
+        <div>
+          <span class="bg-red-600 text-yellow-300 text-xs font-black px-2.5 py-0.5 rounded">★ 3 - 3 - 1959 ★</span>
+          <h1 class="text-2xl font-black text-yellow-300 uppercase mt-1">BỘ ĐỘI BIÊN PHÒNG ĐIỆN BIÊN</h1>
+          <p class="text-xs text-emerald-100">Đồn là nhà, biên giới là quê hương, đồng bào các dân tộc là anh em ruột thịt</p>
         </div>
-      );
-    }
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+      </div>
+      <a href="./cms.html" class="bg-yellow-400 text-[#00381d] font-black text-xs px-4 py-2.5 rounded-xl shadow">
+        🖥️ Mở Trang Web CMS Quản Trị ➔
+      </a>
+    </div>
+  </div>
+  <main class="max-w-5xl mx-auto p-6 space-y-6">
+    <div class="bg-white rounded-2xl p-5 shadow border-l-8 border-[#006837]">
+      <h2 class="font-black text-base text-[#004222] uppercase">Danh bạ 7 Đồn Biên Phòng Tỉnh Điện Biên</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 text-xs">
+        <div class="p-3 rounded-xl border border-slate-200 bg-slate-50">
+          <div class="font-black text-sm text-[#00522b]">DBP-701 - Đồn Biên phòng A Pa Chải</div>
+          <div class="text-slate-600 mt-0.5">Địa bàn: Xã Sín Thầu, Huyện Mường Nhé, Tỉnh Điện Biên</div>
+          <div class="text-slate-600">Cột mốc: Mốc quốc giới số 0 (Việt - Trung - Lào) đến Mốc 9 (Tuyến Việt - Trung & Việt - Lào)</div>
+          <div class="font-bold text-[#006837] mt-1">Trực ban: 02153.875.111</div>
+        </div><div class="p-3 rounded-xl border border-slate-200 bg-slate-50">
+          <div class="font-black text-sm text-[#00522b]">DBP-703 - Đồn Biên phòng Leng Su Sìn</div>
+          <div class="text-slate-600 mt-0.5">Địa bàn: Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé</div>
+          <div class="text-slate-600">Cột mốc: Mốc quốc giới số 10 đến Mốc 28</div>
+          <div class="font-bold text-[#006837] mt-1">Trực ban: 02153.875.222</div>
+        </div><div class="p-3 rounded-xl border border-slate-200 bg-slate-50">
+          <div class="font-black text-sm text-[#00522b]">DBP-707 - Đồn Biên phòng Na Cô Sa</div>
+          <div class="text-slate-600 mt-0.5">Địa bàn: Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ</div>
+          <div class="text-slate-600">Cột mốc: Mốc quốc giới số 55 đến Mốc 65</div>
+          <div class="font-bold text-[#006837] mt-1">Trực ban: 02153.875.289</div>
+        </div><div class="p-3 rounded-xl border border-slate-200 bg-slate-50">
+          <div class="font-black text-sm text-[#00522b]">DBP-711 - Đồn Biên phòng Mường Mơn</div>
+          <div class="text-slate-600 mt-0.5">Địa bàn: Xã Mường Mơn, Huyện Mường Chà</div>
+          <div class="text-slate-600">Cột mốc: Mốc quốc giới số 81 đến Mốc 89</div>
+          <div class="font-bold text-[#006837] mt-1">Trực ban: 02153.875.333</div>
+        </div><div class="p-3 rounded-xl border border-slate-200 bg-slate-50">
+          <div class="font-black text-sm text-[#00522b]">DBP-715 - Đồn Biên phòng Pa Thơm</div>
+          <div class="text-slate-600 mt-0.5">Địa bàn: Xã Pa Thơm, Huyện Điện Biên</div>
+          <div class="text-slate-600">Cột mốc: Mốc quốc giới số 110 đến Mốc 112</div>
+          <div class="font-bold text-[#006837] mt-1">Trực ban: 02153.875.444</div>
+        </div><div class="p-3 rounded-xl border border-slate-200 bg-slate-50">
+          <div class="font-black text-sm text-[#00522b]">DBP-717 - Đồn BP Cửa khẩu Quốc tế Tây Trang</div>
+          <div class="text-slate-600 mt-0.5">Địa bàn: Xã Na Ư, Huyện Điện Biên</div>
+          <div class="text-slate-600">Cột mốc: Cửa khẩu Quốc tế Tây Trang - Pang Hok (Mốc quốc giới 113 - 115)</div>
+          <div class="font-bold text-[#006837] mt-1">Trực ban: 02153.875.555</div>
+        </div><div class="p-3 rounded-xl border border-slate-200 bg-slate-50">
+          <div class="font-black text-sm text-[#00522b]">DBP-721 - Đồn Biên phòng Mường Nhà</div>
+          <div class="text-slate-600 mt-0.5">Địa bàn: Xã Mường Nhà & Xã Na Tông, Huyện Điện Biên</div>
+          <div class="text-slate-600">Cột mốc: Mốc quốc giới số 126 đến Mốc 138</div>
+          <div class="font-bold text-[#006837] mt-1">Trực ban: 02153.875.666</div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    window.__INITIAL_STATIONS__ = [
+  {
+    "id": "don_apachai",
+    "hotline": "02153.875.111",
+    "commander": "Thượng tá Nguyễn Đức Cảnh",
+    "name": "Đồn Biên phòng A Pa Chải",
+    "code": "DBP-701",
+    "area": "Xã Sín Thầu, Huyện Mường Nhé, Tỉnh Điện Biên",
+    "markers": "Mốc quốc giới số 0 (Việt - Trung - Lào) đến Mốc 9 (Tuyến Việt - Trung & Việt - Lào)",
+    "status": "active"
+  },
+  {
+    "id": "don_lengsusin",
+    "status": "active",
+    "name": "Đồn Biên phòng Leng Su Sìn",
+    "code": "DBP-703",
+    "commander": "Trung tá Lò Văn Minh",
+    "area": "Xã Leng Su Sìn & Xã Chung Chải, Huyện Mường Nhé",
+    "hotline": "02153.875.222",
+    "markers": "Mốc quốc giới số 10 đến Mốc 28"
+  },
+  {
+    "id": "don_nacosa",
+    "markers": "Mốc quốc giới số 55 đến Mốc 65",
+    "name": "Đồn Biên phòng Na Cô Sa",
+    "area": "Xã Na Cô Sa & Xã Quảng Lâm, Huyện Nậm Pồ",
+    "code": "DBP-707",
+    "status": "active",
+    "commander": "Trung tá Giàng A Chư",
+    "hotline": "02153.875.289"
+  },
+  {
+    "id": "don_muongmon",
+    "name": "Đồn Biên phòng Mường Mơn",
+    "status": "active",
+    "area": "Xã Mường Mơn, Huyện Mường Chà",
+    "code": "DBP-711",
+    "hotline": "02153.875.333",
+    "commander": "Thiếu tá Hoàng Văn Thái",
+    "markers": "Mốc quốc giới số 81 đến Mốc 89"
+  },
+  {
+    "id": "don_pathom",
+    "hotline": "02153.875.444",
+    "commander": "Trung tá Lê Đình Quyền",
+    "status": "active",
+    "markers": "Mốc quốc giới số 110 đến Mốc 112",
+    "code": "DBP-715",
+    "area": "Xã Pa Thơm, Huyện Điện Biên",
+    "name": "Đồn Biên phòng Pa Thơm"
+  },
+  {
+    "id": "don_taytrang",
+    "status": "active",
+    "name": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "hotline": "02153.875.555",
+    "area": "Xã Na Ư, Huyện Điện Biên",
+    "code": "DBP-717",
+    "markers": "Cửa khẩu Quốc tế Tây Trang - Pang Hok (Mốc quốc giới 113 - 115)",
+    "commander": "Thượng tá Vũ Văn Biển"
+  },
+  {
+    "id": "don_muongnha",
+    "code": "DBP-721",
+    "name": "Đồn Biên phòng Mường Nhà",
+    "area": "Xã Mường Nhà & Xã Na Tông, Huyện Điện Biên",
+    "markers": "Mốc quốc giới số 126 đến Mốc 138",
+    "commander": "Thượng tá Trần Đình Dũng",
+    "hotline": "02153.875.666",
+    "status": "active"
+  }
+];
+    window.__INITIAL_POSTS__ = [
+  {
+    "id": "K7qKzYoicjFPukY2yIBf",
+    "commentsJson": "[]",
+    "areaLabel": "Xã Leng Su Sìn, Huyện Mường Nhé",
+    "authorRole": "dan",
+    "approvedBy": "",
+    "content": "Sau cơn mưa lớn rạng sáng nay, đoạn dốc gần suối bản Chung Chải đi về hướng Mốc 18 có một số tảng đá lăn từ taluy dương xuống mặt đường. Bà con đi thu hoạch nông sản chú ý quan sát.",
+    "stationId": "don_lengsusin",
+    "createdAt": "29/10/2026 09:00",
+    "stationName": "Đồn Biên phòng Leng Su Sìn",
+    "timestamp": 1761706000000,
+    "status": "pending",
+    "likes": 0,
+    "title": "Cảnh báo sạt lở đất đá nhỏ trên tuyến đường dân sinh vào khu vực Mốc 18 sau mưa đêm",
+    "image": "",
+    "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
+    "comments": []
+  },
+  {
+    "id": "at1vgEU81WqreqJZvWUb",
+    "stationName": "Đồn Biên phòng Leng Su Sìn",
+    "areaLabel": "Xã Leng Su Sìn, Huyện Mường Nhé",
+    "commentsJson": "[]",
+    "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
+    "approvedBy": "",
+    "createdAt": "29/10/2026 09:00",
+    "authorRole": "dan",
+    "stationId": "don_lengsusin",
+    "content": "Sau cơn mưa lớn rạng sáng nay, đoạn dốc gần suối bản Chung Chải đi về hướng Mốc 18 có một số tảng đá lăn từ taluy dương xuống mặt đường. Bà con đi thu hoạch nông sản chú ý quan sát.",
+    "status": "pending",
+    "timestamp": 1761706000000,
+    "likes": 0,
+    "image": "",
+    "title": "Cảnh báo sạt lở đất đá nhỏ trên tuyến đường dân sinh vào khu vực Mốc 18 sau mưa đêm",
+    "comments": []
+  },
+  {
+    "id": "eZ62wYMf3A8CKZKMRY5f",
+    "stationName": "Đồn Biên phòng Leng Su Sìn",
+    "areaLabel": "Xã Leng Su Sìn, Huyện Mường Nhé",
+    "commentsJson": "[]",
+    "authorRole": "dan",
+    "approvedBy": "",
+    "stationId": "don_lengsusin",
+    "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
+    "image": "",
+    "title": "Cảnh báo sạt lở đất đá nhỏ trên tuyến đường dân sinh vào khu vực Mốc 18 sau mưa đêm",
+    "createdAt": "29/10/2026 09:00",
+    "status": "pending",
+    "likes": 0,
+    "timestamp": 1761706000000,
+    "content": "Sau cơn mưa lớn rạng sáng nay, đoạn dốc gần suối bản Chung Chải đi về hướng Mốc 18 có một số tảng đá lăn từ taluy dương xuống mặt đường. Bà con đi thu hoạch nông sản chú ý quan sát.",
+    "comments": []
+  },
+  {
+    "id": "ryLHNWC8JQvDajis9BGm",
+    "status": "pending",
+    "commentsJson": "[]",
+    "authorRole": "dan",
+    "approvedBy": "",
+    "areaLabel": "Xã Leng Su Sìn, Huyện Mường Nhé",
+    "timestamp": 1761706000000,
+    "authorName": "Vàng A Páo (Người dân bản Chung Chải)",
+    "createdAt": "29/10/2026 09:00",
+    "image": "",
+    "title": "Cảnh báo sạt lở đất đá nhỏ trên tuyến đường dân sinh vào khu vực Mốc 18 sau mưa đêm",
+    "likes": 0,
+    "content": "Sau cơn mưa lớn rạng sáng nay, đoạn dốc gần suối bản Chung Chải đi về hướng Mốc 18 có một số tảng đá lăn từ taluy dương xuống mặt đường. Bà con đi thu hoạch nông sản chú ý quan sát.",
+    "stationName": "Đồn Biên phòng Leng Su Sìn",
+    "stationId": "don_lengsusin",
+    "comments": []
+  },
+  {
+    "id": "1kXnwtXpeDoNdTNwRpeM",
+    "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "timestamp": 1761703000000,
+    "status": "approved",
+    "stationId": "don_taytrang",
+    "createdAt": "29/10/2026 08:15",
+    "title": "THÔNG BÁO: Tuyên truyền Luật Biên phòng Việt Nam và khám bệnh, cấp phát thuốc miễn phí tại xã Na Ư",
+    "image": "",
+    "likes": 82,
+    "stationName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "areaLabel": "Xã Na Ư, Huyện Điện Biên",
+    "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
+    "commentsJson": "[]",
+    "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
+    "authorRole": "don_bp",
+    "comments": []
+  },
+  {
+    "id": "jZMmXR5Fq5p0EF0Tfp7M",
+    "authorRole": "don_bp",
+    "areaLabel": "Xã Na Ư, Huyện Điện Biên",
+    "commentsJson": "[]",
+    "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
+    "image": "",
+    "title": "THÔNG BÁO: Tuyên truyền Luật Biên phòng Việt Nam và khám bệnh, cấp phát thuốc miễn phí tại xã Na Ư",
+    "likes": 82,
+    "createdAt": "29/10/2026 08:15",
+    "stationId": "don_taytrang",
+    "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
+    "status": "approved",
+    "timestamp": 1761703000000,
+    "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "stationName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "comments": []
+  },
+  {
+    "id": "l680ThOyXIY6fNyEQe7U",
+    "authorRole": "don_bp",
+    "areaLabel": "Xã Na Ư, Huyện Điện Biên",
+    "commentsJson": "[]",
+    "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
+    "image": "",
+    "title": "THÔNG BÁO: Tuyên truyền Luật Biên phòng Việt Nam và khám bệnh, cấp phát thuốc miễn phí tại xã Na Ư",
+    "likes": 82,
+    "createdAt": "29/10/2026 08:15",
+    "stationId": "don_taytrang",
+    "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
+    "status": "approved",
+    "timestamp": 1761703000000,
+    "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "stationName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "comments": []
+  },
+  {
+    "id": "qL6UDU3ca7knIHh2bMuM",
+    "timestamp": 1761703000000,
+    "commentsJson": "[]",
+    "stationId": "don_taytrang",
+    "status": "approved",
+    "authorName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "createdAt": "29/10/2026 08:15",
+    "authorRole": "don_bp",
+    "content": "Đồn Biên phòng Cửa khẩu Quốc tế Tây Trang phối hợp với Quân y Ban Chỉ huy BĐBP Tỉnh Điện Biên tổ chức khám sàng lọc, cấp thuốc miễn phí và phổ biến quy chế khu vực biên giới đất liền cho nhân dân các bản xã Na Ư vào 07h30 ngày 30/10/2026 tại Nhà văn hóa xã.",
+    "likes": 82,
+    "image": "",
+    "title": "THÔNG BÁO: Tuyên truyền Luật Biên phòng Việt Nam và khám bệnh, cấp phát thuốc miễn phí tại xã Na Ư",
+    "approvedBy": "Ban Chỉ huy BĐBP Tỉnh Điện Biên",
+    "areaLabel": "Xã Na Ư, Huyện Điện Biên",
+    "stationName": "Đồn BP Cửa khẩu Quốc tế Tây Trang",
+    "comments": []
+  },
+  {
+    "id": "1pcDzbqkCFWFQJgA3D5K",
+    "authorRole": "dan",
+    "approvedBy": "Đồn Biên phòng A Pa Chải",
+    "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
+    "status": "approved",
+    "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
+    "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
+    "timestamp": 1761700000000,
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
+    "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
+    "likes": 56,
+    "createdAt": "29/10/2026 07:30",
+    "stationId": "don_apachai",
+    "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "comments": [
+      {
+        "id": "cm1",
+        "author": "Đồn Biên phòng A Pa Chải",
+        "role": "don_bp",
+        "text": "Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!",
+        "time": "08:05"
+      }
+    ]
+  },
+  {
+    "id": "8Oz3uoauOggMatLwLiWw",
+    "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
+    "likes": 56,
+    "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
+    "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
+    "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
+    "approvedBy": "Đồn Biên phòng A Pa Chải",
+    "status": "approved",
+    "authorRole": "dan",
+    "timestamp": 1761700000000,
+    "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "stationId": "don_apachai",
+    "createdAt": "29/10/2026 07:30",
+    "comments": [
+      {
+        "id": "cm1",
+        "author": "Đồn Biên phòng A Pa Chải",
+        "role": "don_bp",
+        "text": "Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!",
+        "time": "08:05"
+      }
+    ]
+  },
+  {
+    "id": "JathyFPda7zOw3uJHwA6",
+    "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
+    "likes": 56,
+    "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
+    "timestamp": 1761700000000,
+    "createdAt": "29/10/2026 07:30",
+    "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
+    "approvedBy": "Đồn Biên phòng A Pa Chải",
+    "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
+    "stationId": "don_apachai",
+    "authorRole": "dan",
+    "status": "approved",
+    "comments": [
+      {
+        "id": "cm1",
+        "author": "Đồn Biên phòng A Pa Chải",
+        "role": "don_bp",
+        "text": "Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!",
+        "time": "08:05"
+      }
+    ]
+  },
+  {
+    "id": "c2mTShVl9TI5ogmEFBLO",
+    "commentsJson": "[{\"id\":\"cm1\",\"author\":\"Đồn Biên phòng A Pa Chải\",\"role\":\"don_bp\",\"text\":\"Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!\",\"time\":\"08:05\"}]",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "approvedBy": "Đồn Biên phòng A Pa Chải",
+    "status": "approved",
+    "areaLabel": "Xã Sín Thầu, Huyện Mường Nhé",
+    "authorRole": "dan",
+    "authorName": "Sùng A Lử (Trưởng bản A Pa Chải - Xã Sín Thầu)",
+    "timestamp": 1761700000000,
+    "content": "Sáng nay, 35 hộ gia đình bản A Pa Chải cùng Đội Vận động quần chúng Đồn Biên phòng A Pa Chải tổ chức phát quang 6km đường tuần tra biên giới và kiểm tra an toàn khu vực Cột mốc số 0. Bà con dân bản luôn đoàn kết một lòng cùng Bộ đội Biên phòng giữ vững an ninh biên giới quốc gia.",
+    "createdAt": "29/10/2026 07:30",
+    "likes": 56,
+    "title": "Nhân dân bản A Pa Chải phối hợp cùng cán bộ, chiến sĩ Đồn Biên phòng tuần tra làm sạch đường lên Cột mốc số 0",
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=900&auto=format&fit=crop&q=80",
+    "stationId": "don_apachai",
+    "comments": [
+      {
+        "id": "cm1",
+        "author": "Đồn Biên phòng A Pa Chải",
+        "role": "don_bp",
+        "text": "Cảm ơn đồng bào các dân tộc xã Sín Thầu đã luôn sát cánh cùng đơn vị bảo vệ vững chắc chủ quyền biên giới!",
+        "time": "08:05"
+      }
+    ]
+  }
+];
+    window.__INITIAL_REPORTS__ = [
+  {
+    "id": "1k3JzVUa6JoV3cbM2fo5",
+    "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
+    "code": "TB-DB-102",
+    "stationName": "Đồn Biên phòng Pa Thơm",
+    "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
+    "stationId": "don_pathom",
+    "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
+    "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
+    "createdAt": "29/10/2026 07:45",
+    "senderPhone": "0984.556.789",
+    "timestamp": 1761701000000,
+    "priority": "high",
+    "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
+    "category": "An ninh cột mốc & Sạt lở đường tuần tra",
+    "status": "submitted",
+    "routedToJson": "[\"Đồn Biên phòng Pa Thơm\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+    "routedTo": [
+      "Đồn Biên phòng Pa Thơm",
+      "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
+    ],
+    "events": [
+      {
+        "time": "07:45",
+        "actor": "Hệ thống Định tuyến Tự động",
+        "action": "Chuyển tin báo kép tự động",
+        "note": "Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
+      }
+    ]
+  },
+  {
+    "id": "9pn24YeT8JCDcXne4ki8",
+    "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
+    "senderPhone": "0984.556.789",
+    "category": "An ninh cột mốc & Sạt lở đường tuần tra",
+    "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
+    "stationId": "don_pathom",
+    "createdAt": "29/10/2026 07:45",
+    "routedToJson": "[\"Đồn Biên phòng Pa Thơm\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+    "priority": "high",
+    "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
+    "stationName": "Đồn Biên phòng Pa Thơm",
+    "timestamp": 1761701000000,
+    "status": "submitted",
+    "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
+    "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
+    "code": "TB-DB-102",
+    "routedTo": [
+      "Đồn Biên phòng Pa Thơm",
+      "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
+    ],
+    "events": [
+      {
+        "time": "07:45",
+        "actor": "Hệ thống Định tuyến Tự động",
+        "action": "Chuyển tin báo kép tự động",
+        "note": "Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
+      }
+    ]
+  },
+  {
+    "id": "tEF6sQQQPT6MdOfuedNL",
+    "timestamp": 1761701000000,
+    "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
+    "code": "TB-DB-102",
+    "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
+    "senderPhone": "0984.556.789",
+    "createdAt": "29/10/2026 07:45",
+    "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
+    "stationId": "don_pathom",
+    "category": "An ninh cột mốc & Sạt lở đường tuần tra",
+    "priority": "high",
+    "stationName": "Đồn Biên phòng Pa Thơm",
+    "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
+    "routedToJson": "[\"Đồn Biên phòng Pa Thơm\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+    "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
+    "status": "submitted",
+    "routedTo": [
+      "Đồn Biên phòng Pa Thơm",
+      "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
+    ],
+    "events": [
+      {
+        "time": "07:45",
+        "actor": "Hệ thống Định tuyến Tự động",
+        "action": "Chuyển tin báo kép tự động",
+        "note": "Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
+      }
+    ]
+  },
+  {
+    "id": "y8lnrYdmOVcwkr1YA8DH",
+    "senderPhone": "0984.556.789",
+    "timestamp": 1761701000000,
+    "createdAt": "29/10/2026 07:45",
+    "routedToJson": "[\"Đồn Biên phòng Pa Thơm\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+    "stationId": "don_pathom",
+    "eventsJson": "[{\"time\":\"07:45\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"}]",
+    "description": "Khoảng 25 khối đất đá từ sườn núi sạt xuống sau trận mưa rào tối qua, che khuất biển báo khu vực biên giới và cản trở lối đi tuần tra.",
+    "code": "TB-DB-102",
+    "priority": "high",
+    "category": "An ninh cột mốc & Sạt lở đường tuần tra",
+    "title": "Sạt lở taluy dương chắn ngang lối tuần tra lên Cột mốc 112",
+    "stationName": "Đồn Biên phòng Pa Thơm",
+    "senderName": "Lò Văn Sướng (Trưởng bản Pa Thơm)",
+    "locationDetail": "Chân dốc Mốc quốc giới 112 - Xã Pa Thơm, Huyện Điện Biên",
+    "status": "submitted",
+    "routedTo": [
+      "Đồn Biên phòng Pa Thơm",
+      "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
+    ],
+    "events": [
+      {
+        "time": "07:45",
+        "actor": "Hệ thống Định tuyến Tự động",
+        "action": "Chuyển tin báo kép tự động",
+        "note": "Tin báo đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng Pa Thơm và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
+      }
+    ]
+  },
+  {
+    "id": "Cw3mEZ06rWHOudg5AdLL",
+    "code": "TB-DB-101",
+    "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
+    "status": "in_progress",
+    "category": "Xuất nhập cảnh trái phép / Vượt biên",
+    "senderPhone": "0912.345.678",
+    "priority": "urgent",
+    "locationDetail": "Đường mòn khu vực gần Mốc quốc giới số 3 - Xã Sín Thầu, H. Mường Nhé",
+    "stationId": "don_apachai",
+    "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
+    "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
+    "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+    "createdAt": "29/10/2026 06:00",
+    "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
+    "timestamp": 1761695000000,
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "routedTo": [
+      "Đồn Biên phòng A Pa Chải",
+      "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
+    ],
+    "events": [
+      {
+        "time": "06:00",
+        "actor": "Hệ thống Định tuyến Tự động",
+        "action": "Chuyển tin báo kép tự động",
+        "note": "Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
+      },
+      {
+        "time": "06:05",
+        "actor": "Đồn Biên phòng A Pa Chải",
+        "action": "Tiếp nhận & Cơ động lực lượng",
+        "note": "Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3."
+      }
+    ]
+  },
+  {
+    "id": "KrITvOu3Qj3brVAVT8pz",
+    "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
+    "status": "in_progress",
+    "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
+    "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
+    "senderPhone": "0912.345.678",
+    "timestamp": 1761695000000,
+    "code": "TB-DB-101",
+    "locationDetail": "Đường mòn khu vực gần Mốc quốc giới số 3 - Xã Sín Thầu, H. Mường Nhé",
+    "createdAt": "29/10/2026 06:00",
+    "category": "Xuất nhập cảnh trái phép / Vượt biên",
+    "priority": "urgent",
+    "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
+    "stationId": "don_apachai",
+    "routedTo": [
+      "Đồn Biên phòng A Pa Chải",
+      "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
+    ],
+    "events": [
+      {
+        "time": "06:00",
+        "actor": "Hệ thống Định tuyến Tự động",
+        "action": "Chuyển tin báo kép tự động",
+        "note": "Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
+      },
+      {
+        "time": "06:05",
+        "actor": "Đồn Biên phòng A Pa Chải",
+        "action": "Tiếp nhận & Cơ động lực lượng",
+        "note": "Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3."
+      }
+    ]
+  },
+  {
+    "id": "cNhDNTKK5DhfM8YcQbBc",
+    "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+    "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
+    "senderPhone": "0912.345.678",
+    "category": "Xuất nhập cảnh trái phép / Vượt biên",
+    "status": "in_progress",
+    "priority": "urgent",
+    "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
+    "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
+    "createdAt": "29/10/2026 06:00",
+    "stationId": "don_apachai",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "code": "TB-DB-101",
+    "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
+    "timestamp": 1761695000000,
+    "locationDetail": "Đường mòn khu vực gần Mốc quốc giới số 3 - Xã Sín Thầu, H. Mường Nhé",
+    "routedTo": [
+      "Đồn Biên phòng A Pa Chải",
+      "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
+    ],
+    "events": [
+      {
+        "time": "06:00",
+        "actor": "Hệ thống Định tuyến Tự động",
+        "action": "Chuyển tin báo kép tự động",
+        "note": "Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
+      },
+      {
+        "time": "06:05",
+        "actor": "Đồn Biên phòng A Pa Chải",
+        "action": "Tiếp nhận & Cơ động lực lượng",
+        "note": "Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3."
+      }
+    ]
+  },
+  {
+    "id": "tGsOEkrw1Rv5AW7RhiIg",
+    "senderPhone": "0912.345.678",
+    "timestamp": 1761695000000,
+    "routedToJson": "[\"Đồn Biên phòng A Pa Chải\",\"Ban Chỉ huy BĐBP Tỉnh Điện Biên\"]",
+    "stationId": "don_apachai",
+    "code": "TB-DB-101",
+    "status": "in_progress",
+    "senderName": "Sùng A Lử (Bản A Pa Chải - Xã Sín Thầu)",
+    "createdAt": "29/10/2026 06:00",
+    "title": "Phát hiện 03 đối tượng lạ mặt mang vác bao tải đi qua đường mòn biên giới lúc rạng sáng",
+    "stationName": "Đồn Biên phòng A Pa Chải",
+    "description": "Khoảng 05h45 sáng nay khi đi kiểm tra nương thảo quả, tôi phát hiện 03 người lạ mặt không phải người địa phương đang cắt rừng đi về phía đường mòn Mốc số 3, nghi vấn vận chuyển hàng cấm hoặc vượt biên trái phép.",
+    "eventsJson": "[{\"time\":\"06:00\",\"actor\":\"Hệ thống Định tuyến Tự động\",\"action\":\"Chuyển tin báo kép tự động\",\"note\":\"Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên.\"},{\"time\":\"06:05\",\"actor\":\"Đồn Biên phòng A Pa Chải\",\"action\":\"Tiếp nhận & Cơ động lực lượng\",\"note\":\"Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3.\"}]",
+    "category": "Xuất nhập cảnh trái phép / Vượt biên",
+    "locationDetail": "Đường mòn khu vực gần Mốc quốc giới số 3 - Xã Sín Thầu, H. Mường Nhé",
+    "priority": "urgent",
+    "routedTo": [
+      "Đồn Biên phòng A Pa Chải",
+      "Ban Chỉ huy BĐBP Tỉnh Điện Biên"
+    ],
+    "events": [
+      {
+        "time": "06:00",
+        "actor": "Hệ thống Định tuyến Tự động",
+        "action": "Chuyển tin báo kép tự động",
+        "note": "Tin báo của người dân đã được gửi TỰ ĐỘNG đồng thời tới: (1) Đồn Biên phòng A Pa Chải và (2) Ban Chỉ huy BĐBP Tỉnh Điện Biên."
+      },
+      {
+        "time": "06:05",
+        "actor": "Đồn Biên phòng A Pa Chải",
+        "action": "Tiếp nhận & Cơ động lực lượng",
+        "note": "Trực ban Đồn đã báo cáo Chỉ huy Đồn, cử Đội Tuần tra vũ trang 06 đồng chí cơ động khóa chặt khu vực đường mòn Mốc số 3."
+      }
+    ]
+  }
+];
   </script>
 </body>
 </html>
